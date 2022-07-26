@@ -56,6 +56,8 @@ $bg-color: $color-white;
 $font-color: $font-color-dafault;
 $remove-btn-bg: $color-red;
 $border-radius: 0.25rem;
+$transition-duration: 0.2s;
+
 .card {
   position: relative;
   width: 100%;
@@ -86,6 +88,12 @@ $border-radius: 0.25rem;
     cursor: pointer;
     z-index: 1;
 
+    visibility: hidden;
+    opacity: 0;
+
+    transition: $transition-duration opacity ease,
+      $transition-duration visibility ease;
+
     svg {
       width: 1rem;
       height: 1rem;
@@ -110,11 +118,8 @@ $border-radius: 0.25rem;
 
   .img {
     position: absolute;
-    left: 50%;
-    top: 50%;
     height: 100%;
     object-fit: contain;
-    transform: translate(-50%, -50%);
   }
 
   .info {
@@ -141,6 +146,13 @@ $border-radius: 0.25rem;
   .price {
     font-size: 1.5rem;
     font-weight: 600;
+  }
+
+  @include hover() {
+    .remove-btn {
+      visibility: visible;
+      opacity: 1;
+    }
   }
 }
 </style>
