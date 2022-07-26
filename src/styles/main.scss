@@ -5,6 +5,8 @@ body {
 	font-family: $font-family-dafault, sans-serif;
 	color: $font-color-dafault;
 	background-color: $body-bg-color-default;
+	margin: 0;
+	padding: 0;
 }
 
 .container {
@@ -12,4 +14,5 @@ body {
 	max-width: $container-max-width;
 	padding: 0 $container-padding;
 	margin: 0 auto;
+	box-sizing: border-box;
 }

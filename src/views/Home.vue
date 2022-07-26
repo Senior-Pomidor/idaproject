@@ -1,24 +1,31 @@
 <template>
-  <div class="home">
-    <h1>Lorem ipsum dolor sit amet.</h1>
+  <div :class="home.home">
+    <div :class="home.container" class="container">
+      <h1>home</h1>
+      <Card></Card>
+    </div>
   </div>
 </template>
 
 <script>
-// import Card from "@/components/Card";
-// import FormAdd from "@/components/Card";
+import Card from "@/components/Card";
+// import FormAdd from "@/components/FormAdd";
 
 export default {
   name: "home",
   components: {
-    // Card,
+    Card,
     // FormAdd,
   },
 };
 </script>
 
-<style>
-/* h1 {
-  font-family: Source Sans Pro;
-} */
+<style lang="scss" module="home">
+.home {
+  color: $color-white;
+
+  .container {
+    background-color: $color-green;
+  }
+}
 </style>
