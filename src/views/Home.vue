@@ -2,20 +2,20 @@
   <div :class="home.home">
     <div :class="home.container" class="container">
       <h1>home</h1>
-      <Card></Card>
+      <FormAdd></FormAdd>
     </div>
   </div>
 </template>
 
 <script>
-import Card from "@/components/Card";
-// import FormAdd from "@/components/FormAdd";
+// import Card from "@/components/Card";
+import FormAdd from "@/components/FormAdd";
 
 export default {
   name: "home",
   components: {
-    Card,
-    // FormAdd,
+    // Card,
+    FormAdd,
   },
 };
 </script>
