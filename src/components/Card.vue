@@ -66,7 +66,6 @@ $transition-duration: 0.2s;
   color: $font-color;
   background-color: $bg-color;
   border-radius: $border-radius;
-  margin: 0 auto;
   box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04),
     0px 6px 10px rgba(0, 0, 0, 0.02);
 
