@@ -4,9 +4,9 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        // additionalData: `
-        // 		@import "@/styles/_imports.scss";
-        // 	`,
+        additionalData: `
+        		@import "@/styles/_imports.scss";
+        	`,
       },
     },
   },

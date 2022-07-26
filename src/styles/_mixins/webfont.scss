@@ -1,0 +1,40 @@
+// иконочный шрифт
+// сгенерирован на https://icomoon.io
+// @font-face {
+// 	font-family: 'webfont';
+// 	src: url('../../assets/fonts/webfont/webfont.eot');
+// 	src: url('../../assets/fonts/webfont/webfont.eot#iefix') format('embedded-opentype'),
+// 		url('../../assets/fonts/webfont/webfont.ttf') format('truetype'),
+// 		url('../../assets/fonts/webfont/webfont.woff') format('woff'),
+// 		url('../../assets/fonts/webfont/webfont.svg#webfont') format('svg');
+// 	font-weight: normal;
+// 	font-style: normal;
+// 	font-display: block;
+// }
+
+$webfont-icon--facebook: "e900";
+$webfont-icon--instagram: "e901";
+$webfont-icon--mail: "e902";
+$webfont-icon--send: "e903";
+$webfont-icon--star: "e904";
+$webfont-icon--telegram: "e905";
+$webfont-icon--vk: "e906";
+$webfont-icon--watsapp: "e907";
+
+@mixin webfont-icon($icon-code, $after-or-before: 'before') {
+	&:#{$after-or-before} {
+		display: inline-block;
+		font-family: 'webfont';
+		font-style: normal;
+		font-weight: normal;
+		font-variant: normal;
+		line-height: 1;
+		color: currentColor;
+		content: #{'"\\' + $icon-code + '"'};
+		
+		
+		speak: none;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+}
