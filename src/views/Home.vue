@@ -25,7 +25,7 @@ export default {
   color: $color-white;
 
   .container {
-    background-color: $color-green;
+    // background-color: $color-green;
   }
 }
 </style>
