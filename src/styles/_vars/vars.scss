@@ -1,14 +1,20 @@
 @import 'colors.scss';
 
+// брейкпоинты для медиазапросов
 $breakpoint-xs: 510px;
 $breakpoint-sm: 798px;
 $breakpoint-md: 1054px;
 $breakpoint-lg: 1270px;
 
-$container-padding: 1rem;
-$container-max-width: 1200px;
+// основной контейнер
+$container-padding: 2rem;
+$container-max-width: 1440px;
 
+// фолтные значения глобальных переменных
+$font-color-dafault: #000 !default;
+$body-bg-color-default: #fff !default;
 
-$body-color: $color-light-black;
-
-
+// глоальные стили для body
+$font-family-dafault: Source Sans Pro;
+$font-color-dafault: $color-black-brown;
+$body-bg-color-default: $color-grey-light;

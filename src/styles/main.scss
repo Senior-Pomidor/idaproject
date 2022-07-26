@@ -1,1 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap');
 @import '_imports.scss';
+
+body {
+	font-family: $font-family-dafault, sans-serif;
+	color: $font-color-dafault;
+	background-color: $body-bg-color-default;
+}
+
+.container {
+	width: 100%;
+	max-width: $container-max-width;
+	padding: 0 $container-padding;
+	margin: 0 auto;
+}

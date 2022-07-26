@@ -5,7 +5,7 @@
 </template>
 
 <style lang="scss">
-.app {
-  color: $color-green;
-}
+// .app {
+//   color: $color-green;
+// }
 </style>
