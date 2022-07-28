@@ -30,7 +30,7 @@
 
     <router-link to="/" :class="card.link">
       <div :class="card['img-wrapper']">
-        <img :class="card.img" src="/img/content/img-card.jpg" alt="" />
+        <img :class="card.img" src="img/content/img-card.jpg" alt="" />
       </div>
 
       <div :class="card.info">
