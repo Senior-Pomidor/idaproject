@@ -104,7 +104,7 @@ $required-helper-color: $color-red;
 
 .form-add {
 	width: 100%;
-	max-width: 480px;
+	max-width: 470px;
 	background-color: $bg-color;
 	border-radius: $border-radius;
 	padding: 1.5rem;
@@ -117,11 +117,6 @@ $required-helper-color: $color-red;
 		width: 100%;
 		position: relative;
 		margin-bottom: 1rem;
-		// display: flex;
-		// flex-wrap: wrap;
-		// &:last-child {
-		// 	margin-bottom: 1.5rem;
-		// }
 	}
 
 	.label {
