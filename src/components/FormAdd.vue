@@ -3,12 +3,13 @@
 		<div :class="{ [formAdd.group]: true, [formAdd.required]: true }">
 			<label :class="formAdd.label" for="title">Наименование товара</label>
 			<input
-				:class="{[formAdd.input] : true, [formAdd['validation-required']] : true}"
+				:class="{[formAdd.input] : true, [formAdd['validation-required']] : !$v.info.title.required}"
 				type="text"
 				id="title"
 				name="title"
 				placeholder="Введите наименование товара"
 				v-model="info.title"
+				autocomplete="off"
 			/>
 			<small :class="formAdd['required-helper']">
 				Поле является обязательным
@@ -26,6 +27,7 @@
 				name="descripton"
 				placeholder="Введите описание товара"
 				v-model="info.description"
+				autocomplete="off"
 			></textarea>
 		</div>
 
@@ -34,12 +36,13 @@
 				Ссылка на изображение товара
 			</label>
 			<input
-				:class="{[formAdd.input] : true, [formAdd['validation-required']] : true}"
+				:class="{[formAdd.input] : true, [formAdd['validation-required']] : !$v.info.image.required}"
 				type="text"
 				id="img"
 				name="img"
 				placeholder="Введите ссылку"
 				v-model="info.image"
+				autocomplete="off"
 			/>
 			<small :class="formAdd['required-helper']">
 				Поле является обязательным
@@ -49,12 +52,13 @@
 		<div :class="{ [formAdd.group]: true, [formAdd.required]: true }">
 			<label :class="formAdd.label" for="price"> Цена товара </label>
 			<input
-				:class="{[formAdd.input] : true, [formAdd['validation-required']] : true}"
-				type="text"
+				:class="{[formAdd.input] : true, [formAdd['validation-required']] : !($v.info.price.required && $v.info.price.decimal)}"
+				type="number"
 				id="price"
 				name="price"
 				placeholder="Введите цену"
 				v-model="info.price"
+				autocomplete="off"
 			/>
 			<small :class="formAdd['required-helper']">
 				Поле является обязательным
@@ -62,31 +66,57 @@
 		</div>
 
 		<input
-			:class="{ [formAdd['submit-btn']]: true, [formAdd.input]: true }"
+			:class="{ [
+				formAdd['submit-btn']]: true,
+				[formAdd.input]: true}"
 			type="submit"
 			value="Добавить товар"
 			@click.prevent="sendForm()"
 		/>
+			<!-- :disabled="$v.info.$invalid" -->
 	</form>
 </template>
 
 <script>
+import {required, decimal} from 'vuelidate/lib/validators';
+
 export default {
 	name: "form-add",
 	data() {
 		return {
+			currency: 'руб.',
 			info: {
 				title: null,
 				description: null,
 				image: null,
-				price: null,
-				currency: 'руб.'
+				price: null
 			}
 		}
 	},
+	validations: {
+		info: {
+			title: { required },
+			image: { required },
+			price: { required, decimal }
+		}
+	},
+	mounted() {
+		this.resetTextFields();
+	},
 	methods: {
 		sendForm() {
-			console.log(this.info);
+			const formData = this.info;
+			formData.currency = this.currency;
+			
+			alert('Карточка успешно добавлена');
+			
+			this.resetTextFields();
+		},
+		resetTextFields() {
+			Object.keys(this.info)
+						.forEach(key => {
+								this.info[key] = null
+						})
 		}
 	}
 };
@@ -183,6 +213,20 @@ $required-helper-color: $color-red;
 			outline: none;
 		}
 		
+		+ .required-helper {
+			position: absolute;
+			left: 0;
+			top: calc(100% + .25rem);
+			font-size: .5rem;
+			line-height: 1.25;
+			color: $required-helper-color;
+			pointer-events: none;
+			
+			visibility: hidden;
+			opacity: 0;
+			transition: visibility .2s ease, opacity .2s ease;
+		}
+		
 		&.validation-required {
 			&:focus {
 			border-color: $color-red;
@@ -204,12 +248,20 @@ $required-helper-color: $color-red;
 		width: 100%;
 
 		text-align: center;
-		color: $btn-color;
+		color: white;
 		font-weight: 600;
 		letter-spacing: -0.02em;
 
-		background-color: $btn-bg-color;
+		background-color: $color-green;
 		margin-top: 1.5rem;
+		
+		transition: color .2s ease,
+								background-color .2s ease;
+		
+		&:disabled {
+			color: $btn-color;
+			background-color: $btn-bg-color;
+		}
 	}
 	
 	.required {
@@ -228,20 +280,6 @@ $required-helper-color: $color-red;
 				content: "";
 			}
 		}
-	}
-	
-	.required-helper {
-		position: absolute;
-		left: 0;
-		top: calc(100% + .25rem);
-		font-size: .5rem;
-		line-height: 1.25;
-		color: $required-helper-color;
-		pointer-events: none;
-		
-		visibility: hidden;
-		opacity: 0;
-		// transition: visibility .1s ease, opacity .1s ease;
 	}
 }
 </style>
