@@ -2,7 +2,7 @@
   <article :class="card.card">
     <button :class="card['remove-btn']">
       <svg xmlns="http://www.w3.org/2000/svg">
-        <g clip-path="url(#clip0_4_349)">
+        <g>
           <path
             d="M10.207 5.79688C9.99998 5.79688 9.83224 5.96462 9.83224 6.17158V13.2535C9.83224 13.4604 9.99998 13.6283 10.207 13.6283C10.4139 13.6283 10.5817 13.4604 10.5817 13.2535V6.17158C10.5817 5.96462 10.4139 5.79688 10.207 5.79688Z"
             fill="white"
@@ -61,7 +61,7 @@ $transition-duration: 0.2s;
 .card {
   position: relative;
   width: 100%;
-  max-width: 510px;
+  max-width: 470px;
   line-height: 1.25;
   color: $font-color;
   background-color: $bg-color;
@@ -117,6 +117,7 @@ $transition-duration: 0.2s;
 
   .img {
     position: absolute;
+    width: 100%;
     height: 100%;
     object-fit: contain;
   }
@@ -147,7 +148,7 @@ $transition-duration: 0.2s;
     font-weight: 600;
   }
 
-  @include hover() {
+  &:hover {
     .remove-btn {
       visibility: visible;
       opacity: 1;
