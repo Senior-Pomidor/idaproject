@@ -30,21 +30,42 @@
 
     <router-link to="/" :class="card.link">
       <div :class="card['img-wrapper']">
-        <img :class="card.img" src="img/content/img-card.jpg" alt="" />
+        <img :class="card.img"
+            :src="info.image" :alt="info.title" />
       </div>
 
       <div :class="card.info">
-        <h1 :class="card.title">Наименование товара</h1>
-        <p :class="card.description">
-          Довольно-таки интересное описание товара в&nbsp;несколько строк.
-          Довольно-таки интересное описание товара в&nbsp;несколько строк
+        <h1 :class="card.title">{{ info.title }}</h1>
+        <p :class="card.description"
+            v-html="info.description">
         </p>
 
-        <strong :class="card.price"> 10 000 руб. </strong>
+        <strong :class="card.price"> {{info.price}} {{info.currency}} </strong>
       </div>
     </router-link>
   </article>
 </template>
+
+<script>
+  export default {
+    name: 'card',
+    props: {
+      info: {
+        type: Object,
+        default() {
+          return {
+              link: null,
+              image: "img/content/product.jpg",
+              title: null,
+              description: null,
+              price: null,
+              currency: null
+          }
+        }
+      }
+    }
+  }
+</script>
 
 <style lang="scss" module="card">
 // Дефолтные значения переменных, если не заданы глобальные
