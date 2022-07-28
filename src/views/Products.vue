@@ -14,7 +14,7 @@
 							<button :class="products['dropdown-btn']">
 								По умолчанию
 							</button>
-							<ul :class="products['dropdown-optioins']">
+							<ul :class="products['dropdown-options']">
 								<li :class="products['dropdown-option']">
 									по умолчанию
 								</li>
@@ -33,18 +33,10 @@
 						</div>
 					</div>
 					<div :class="products.cards">
-						<Card />
-						<Card />
-						<Card />
-						<Card />
-						<Card />
-						<Card />
-						<Card />
-						<Card />
-						<Card />
-						<Card />
-						<Card />
-						<Card />
+						<Card
+								v-for="product in PRODUCTS"
+								:key="product.id"
+								:info="product" />
 					</div>
 				</article>
 			</div>
@@ -54,13 +46,23 @@
 <script>
 import Card from "@/components/Card";
 import FormAdd from "@/components/FormAdd";
+import {mapActions, mapGetters} from 'vuex';
 
 export default {
 	name: "products",
 	components: {
 		Card,
-		FormAdd,
+		FormAdd
 	},
+	methods: {
+		...mapActions(['FETCH_PRODUCTS_MOCKUP'])
+	},
+	computed: {
+		...mapGetters(['PRODUCTS'])
+	},
+	mounted() {
+		this.FETCH_PRODUCTS_MOCKUP()
+	}
 };
 </script>
 
@@ -121,7 +123,7 @@ $grid-gap: 1rem;
 		flex-direction: column;
 	}
 	
-	.dropdown-optioins {
+	.dropdown-options {
 		display: none;
 	}
 	

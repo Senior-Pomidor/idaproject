@@ -8,6 +8,7 @@
 				id="title"
 				name="title"
 				placeholder="Введите наименование товара"
+				v-model="info.title"
 			/>
 			<small :class="formAdd['required-helper']">
 				Поле является обязательным
@@ -24,6 +25,7 @@
 				id="descripton"
 				name="descripton"
 				placeholder="Введите описание товара"
+				v-model="info.description"
 			></textarea>
 		</div>
 
@@ -37,6 +39,7 @@
 				id="img"
 				name="img"
 				placeholder="Введите ссылку"
+				v-model="info.image"
 			/>
 			<small :class="formAdd['required-helper']">
 				Поле является обязательным
@@ -51,6 +54,7 @@
 				id="price"
 				name="price"
 				placeholder="Введите цену"
+				v-model="info.price"
 			/>
 			<small :class="formAdd['required-helper']">
 				Поле является обязательным
@@ -61,7 +65,7 @@
 			:class="{ [formAdd['submit-btn']]: true, [formAdd.input]: true }"
 			type="submit"
 			value="Добавить товар"
-			@click.prevent
+			@click.prevent="sendForm()"
 		/>
 	</form>
 </template>
@@ -69,6 +73,22 @@
 <script>
 export default {
 	name: "form-add",
+	data() {
+		return {
+			info: {
+				title: null,
+				description: null,
+				image: null,
+				price: null,
+				currency: 'руб.'
+			}
+		}
+	},
+	methods: {
+		sendForm() {
+			console.log(this.info);
+		}
+	}
 };
 </script>
 
