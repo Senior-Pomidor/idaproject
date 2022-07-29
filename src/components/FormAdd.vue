@@ -183,6 +183,7 @@ $required-helper-color: $color-red;
 		position: relative;
 		width: 100%;
 
+		font-family: $font-family-dafault;
 		color: $input-font-color;
 		font-size: 0.75rem;
 		line-height: 1.25;
@@ -192,6 +193,11 @@ $required-helper-color: $color-red;
 		box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 		border: 1px solid transparent;
 		border-radius: $border-radius;
+		-webkit-border-radius:  $border-radius;
+		-moz-border-radius:  $border-radius;
+		-ms-border-radius:  $border-radius;
+		-o-border-radius:  $border-radius;
+		-webkit-appearance: none;
 		padding: calc(0.625rem - $input-border-width) calc(1rem - $input-border-width) calc(0.625rem + 1px - $input-border-width);
 		box-sizing: border-box;
 		
