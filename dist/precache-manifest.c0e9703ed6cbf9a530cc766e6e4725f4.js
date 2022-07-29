@@ -1,31 +1,31 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6f1b0e0ca427f2214cdf",
+    "revision": "fdc795a180fb1b1fd19d",
     "url": "/idaproject/css/app.2cb04255.css"
   },
   {
-    "revision": "79dd22b173d56923083b",
-    "url": "/idaproject/css/chunk-51f6d132.100b128d.css"
+    "revision": "4a31040bf0fa1e74e916",
+    "url": "/idaproject/css/chunk-42b0c84c.e417d0d3.css"
   },
   {
     "revision": "ff671c058f8c866e2044d7c7e8e7a689",
     "url": "/idaproject/img/content/img-card.jpg"
   },
   {
-    "revision": "d95a5cc8d881ac4a7fbc67f2a6b4c8d3",
+    "revision": "b79fd8e215dd15a1234af0442e3ff7f9",
     "url": "/idaproject/index.html"
   },
   {
-    "revision": "6f1b0e0ca427f2214cdf",
-    "url": "/idaproject/js/app.31197441.js"
+    "revision": "fdc795a180fb1b1fd19d",
+    "url": "/idaproject/js/app.cf3b7868.js"
   },
   {
     "revision": "677fd82ce120426d047c",
     "url": "/idaproject/js/chunk-2d230cde.90677e56.js"
   },
   {
-    "revision": "79dd22b173d56923083b",
-    "url": "/idaproject/js/chunk-51f6d132.0b650099.js"
+    "revision": "4a31040bf0fa1e74e916",
+    "url": "/idaproject/js/chunk-42b0c84c.d10355c4.js"
   },
   {
     "revision": "b91879838a35cb57a5cc",
