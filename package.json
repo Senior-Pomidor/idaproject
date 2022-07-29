@@ -7,7 +7,7 @@
     "start": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy:dist": ""
+    "deploy:dist": "git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
     "axios": "^0.27.2",
