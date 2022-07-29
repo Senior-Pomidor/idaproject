@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/idaproject/precache-manifest.eff51a931d1cc998d38425baca086732.js"
+  "/idaproject/precache-manifest.c0e9703ed6cbf9a530cc766e6e4725f4.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "idaproject"});
