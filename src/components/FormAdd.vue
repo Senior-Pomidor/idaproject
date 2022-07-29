@@ -213,6 +213,10 @@ $required-helper-color: $color-red;
 			color: $input-placeholder-color;
 			font-family: $font-family-dafault, sans-serif;
 		}
+		
+		@include hover() {
+			border-color: #e5e5e5;
+		}
 
 		&:focus {
 			border: 1px solid $color-green;
@@ -256,9 +260,11 @@ $required-helper-color: $color-red;
 		text-align: center;
 		color: white;
 		font-weight: 600;
+		font-family: $font-family-dafault;
 		letter-spacing: -0.02em;
 
 		background-color: $color-green;
+		border-radius: .625rem;
 		margin-top: 1.5rem;
 		
 		transition: color .2s ease,
