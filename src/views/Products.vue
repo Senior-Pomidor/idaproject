@@ -13,6 +13,7 @@
 						<div :class="products.dropdown" name="sort" id="sort">
 							<button :class="products['dropdown-btn']">
 								По умолчанию
+								<i :class="products['dropdown-icon']"></i>
 							</button>
 							<ul :class="products['dropdown-options']">
 								<li :class="products['dropdown-option']">
@@ -70,6 +71,7 @@ export default {
 // Дефолтные значения переменных, если не заданы глобальные
 $font-color-dafault: #3F3F3F !default;
 $container-padding: 2rem !default;
+$font-family-dafault: Arial !default;
 
 $header-margin-bottom: 1rem;
 $grid-gap: 1rem;
@@ -106,16 +108,33 @@ $grid-gap: 1rem;
 	}
 	
 	.dropdown-btn {
-		align-self: flex-end;
-		font-size: .75rem;
-		line-height: 1.25;
-		color: #B4B4B4;
-		background-color: #fff;
-		border: none;
-		border-radius: .25rem;
-		box-shadow:  0px 2px 5px rgba(0, 0, 0, 0.1);
-		margin-bottom: $header-margin-bottom;
-		padding: .625rem 1rem calc(.625rem + 1px);
+    display: flex;
+    align-items: center;
+    align-self: flex-end;
+		font-family: $font-family-dafault, sans-serif;
+    font-size: 0.75rem;
+    line-height: 1.25;
+    color: #B4B4B4;
+    background-color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    box-shadow: 0px 2px 5px rgb(0 0 0 / 10%);
+    margin-bottom: 1rem;
+    padding: 0.625rem 1rem calc(0.625rem + 1px);
+    font-weight: 400;
+	}
+	
+	.dropdown-icon {
+		position: relative;
+		top: -1px;
+		display: inline-block;
+		width: 5px;
+		height: 5px;
+		border-top: 1px solid #B4B4B4;
+		border-left: 1px solid #B4B4B4;
+		margin-left: 6px;
+		transform-origin: 50% 50%;
+		transform: rotate(-135deg);
 	}
 	
 	.dropdown {
