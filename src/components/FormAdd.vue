@@ -36,7 +36,7 @@
 				Ссылка на изображение товара
 			</label>
 			<input
-				:class="{[formAdd.input] : true, [formAdd['validation-required']] : !$v.info.image.required}"
+				:class="{[formAdd.input] : true, [formAdd['validation-required']] : !($v.info.image.required && $v.info.image.url)}"
 				type="text"
 				id="img"
 				name="img"
@@ -52,13 +52,14 @@
 		<div :class="{ [formAdd.group]: true, [formAdd.required]: true }">
 			<label :class="formAdd.label" for="price"> Цена товара </label>
 			<input
-				:class="{[formAdd.input] : true, [formAdd['validation-required']] : !($v.info.price.required && $v.info.price.decimal)}"
-				type="number"
+				:class="{[formAdd.input] : true, [formAdd['validation-required']] : !$v.info.price.required}"
+				type="text"
 				id="price"
 				name="price"
 				placeholder="Введите цену"
 				v-model="info.price"
 				autocomplete="off"
+				@input="formatPrice()"
 			/>
 			<small :class="formAdd['required-helper']">
 				Поле является обязательным
@@ -78,7 +79,7 @@
 </template>
 
 <script>
-import {required, decimal} from 'vuelidate/lib/validators';
+import {required, url} from 'vuelidate/lib/validators';
 
 export default {
 	name: "form-add",
@@ -96,27 +97,35 @@ export default {
 	validations: {
 		info: {
 			title: { required },
-			image: { required },
-			price: { required, decimal }
+			image: { required, url },
+			price: { required }
 		}
 	},
 	mounted() {
 		this.resetTextFields();
 	},
 	methods: {
+		// async 
 		sendForm() {
-			const formData = this.info;
-			formData.currency = this.currency;
-			
-			alert('Карточка успешно добавлена');
-			
-			this.resetTextFields();
+			// try {
+				const formData = this.info;
+				formData.currency = this.currency;
+				
+				// await this.$store.dispatch('updateCategory', categoryData)
+				alert('Карточка успешно добавлена');
+				
+				this.resetTextFields();
+			// } catch (err) {}
 		},
 		resetTextFields() {
 			Object.keys(this.info)
 						.forEach(key => {
 								this.info[key] = null
 						})
+		},
+		formatPrice() {
+			this.info.price = this.info.price.replace(/[^0-9.]/g,'').replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+			console.log(this.info.price)
 		}
 	}
 };
@@ -213,6 +222,15 @@ $required-helper-color: $color-red;
 			color: $input-placeholder-color;
 			font-family: $font-family-dafault, sans-serif;
 		}
+		
+		// &[type="number"] {
+		// 	-moz-appearance: textfield;
+			
+		// 	&::-webkit-outer-spin-button,
+		// 	&::-webkit-inner-spin-button {
+		// 			-webkit-appearance: none;
+		// 	}
+		// }
 		
 		@include hover() {
 			border-color: #e5e5e5;

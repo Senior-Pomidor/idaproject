@@ -140,7 +140,7 @@ $transition-duration: 0.2s;
     position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
   }
 
   .info {

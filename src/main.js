@@ -10,6 +10,7 @@ import "@/styles/main.scss";
 
 Vue.config.productionTip = false;
 
+
 Vue.use(Vuelidate)
 
 new Vue({

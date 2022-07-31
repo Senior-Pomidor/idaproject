@@ -13,7 +13,10 @@ const actions = {
 		let mockup = await import('../mockup.json')
 		commit("SET_PRODUCTS_MOCKUP", mockup.products);
 		return mockup;
-	}
+	},
+	// async CREATE_PRODUCT({ commit, payload }) {
+		
+	// }
 };
 
 const getters = {
