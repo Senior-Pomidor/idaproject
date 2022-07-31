@@ -37,7 +37,8 @@
 						<Card
 								v-for="product in PRODUCTS"
 								:key="product.id"
-								:info="product" />
+								:info="product"
+								:class="{ [products['new-product']]: product.id == $store.state.products.newId }" />
 					</div>
 				</article>
 			</div>
@@ -77,6 +78,20 @@ $header-margin-bottom: 1rem;
 $grid-gap: 1rem;
 .products {
 	color: $font-color-dafault;
+	
+	@keyframes newProduct {
+		from {
+			opacity: .2;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+	
+	.new-product {
+		animation-name: newProduct;
+		animation-duration: 1.5s;
+	}
 
 	.container {
 		display: grid;
