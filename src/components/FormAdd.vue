@@ -2,15 +2,8 @@
 	<form action="" :class="formAdd['form-add']">
 		<div :class="{ [formAdd.group]: true, [formAdd.required]: true }">
 			<label :class="formAdd.label" for="title">Наименование товара</label>
-			<input
-				:class="{[formAdd.input] : true, [formAdd['validation-required']] : !$v.info.title.required}"
-				type="text"
-				id="title"
-				name="title"
-				placeholder="Введите наименование товара"
-				v-model="info.title"
-				autocomplete="off"
-			/>
+			<input :class="{ [formAdd.input]: true, [formAdd['validation-required']]: !$v.info.title.required }" type="text"
+				id="title" name="title" placeholder="Введите наименование товара" v-model="info.title" autocomplete="off" />
 			<small :class="formAdd['required-helper']">
 				Поле является обязательным
 			</small>
@@ -20,15 +13,8 @@
 			<label :class="formAdd.label" for="descripton">
 				Описание товара
 			</label>
-			<textarea
-				:class="{ [formAdd.input]: true, [formAdd.textarea]: true }"
-				rows="5"
-				id="descripton"
-				name="descripton"
-				placeholder="Введите описание товара"
-				v-model="info.description"
-				autocomplete="off"
-			></textarea>
+			<textarea :class="{ [formAdd.input]: true, [formAdd.textarea]: true }" rows="5" id="descripton" name="descripton"
+				placeholder="Введите описание товара" v-model="info.description" autocomplete="off"></textarea>
 		</div>
 
 		<div :class="{ [formAdd.group]: true, [formAdd.required]: true }">
@@ -36,14 +22,8 @@
 				Ссылка на изображение товара
 			</label>
 			<input
-				:class="{[formAdd.input] : true, [formAdd['validation-required']] : !($v.info.image.required && $v.info.image.url)}"
-				type="text"
-				id="img"
-				name="img"
-				placeholder="Введите ссылку"
-				v-model="info.image"
-				autocomplete="off"
-			/>
+				:class="{ [formAdd.input]: true, [formAdd['validation-required']]: !($v.info.image.required && $v.info.image.url) }"
+				type="text" id="img" name="img" placeholder="Введите ссылку" v-model="info.image" autocomplete="off" />
 			<small :class="formAdd['required-helper']">
 				Поле является обязательным
 			</small>
@@ -51,35 +31,27 @@
 
 		<div :class="{ [formAdd.group]: true, [formAdd.required]: true }">
 			<label :class="formAdd.label" for="price"> Цена товара </label>
-			<input
-				:class="{[formAdd.input] : true, [formAdd['validation-required']] : !$v.info.price.required}"
-				type="text"
-				id="price"
-				name="price"
-				placeholder="Введите цену"
-				v-model="info.price"
-				autocomplete="off"
-				@input="formatPrice()"
-			/>
+			<input :class="{ [formAdd.input]: true, [formAdd['validation-required']]: !$v.info.price.required }" type="text"
+				id="price" name="price" placeholder="Введите цену" v-model="info.price" autocomplete="off"
+				@input="formatPrice()" />
 			<small :class="formAdd['required-helper']">
 				Поле является обязательным
 			</small>
 		</div>
 
-		<input
-			:class="{ [
-				formAdd['submit-btn']]: true,
-				[formAdd.input]: true}"
+		<input :class="{
+			[formAdd['submit-btn']]: true,
+			[formAdd.input]: true}"
 			type="submit"
 			value="Добавить товар"
 			:disabled="$v.info.$invalid"
-			@click.prevent="sendForm()"
-		/>
+			@click.prevent="sendForm()" />
 	</form>
 </template>
 
 <script>
-import {required, url} from 'vuelidate/lib/validators';
+import { required, url } from 'vuelidate/lib/validators';
+import { mapActions } from 'vuex'
 
 export default {
 	name: "form-add",
@@ -105,27 +77,27 @@ export default {
 		this.resetTextFields();
 	},
 	methods: {
-		// async 
+		...mapActions(['CREATE_PRODUCT']),
 		sendForm() {
-			// try {
-				const formData = this.info;
-				formData.currency = this.currency;
-				
-				// await this.$store.dispatch('updateCategory', categoryData)
-				alert('Карточка успешно добавлена');
-				
-				this.resetTextFields();
-			// } catch (err) {}
+			const formData = {}
+
+			formData.currency = this.currency;
+			formData.id = Date.now()
+			for (let key in this.info) {
+				formData[key] = this.info[key];
+			}
+
+			this.CREATE_PRODUCT(formData);
+			alert('Товар успешно добавлен');
+			this.resetTextFields();
 		},
 		resetTextFields() {
-			Object.keys(this.info)
-						.forEach(key => {
-								this.info[key] = null
-						})
+			for (let key in this.info) {
+				this.info[key] = null;
+			}
 		},
 		formatPrice() {
-			this.info.price = this.info.price.replace(/[^0-9.]/g,'').replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-			console.log(this.info.price)
+			this.info.price = this.info.price.replace(/[^0-9.]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 		}
 	}
 };
@@ -202,14 +174,14 @@ $required-helper-color: $color-red;
 		box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 		border: 1px solid transparent;
 		border-radius: $border-radius;
-		-webkit-border-radius:  $border-radius;
-		-moz-border-radius:  $border-radius;
-		-ms-border-radius:  $border-radius;
-		-o-border-radius:  $border-radius;
+		-webkit-border-radius: $border-radius;
+		-moz-border-radius: $border-radius;
+		-ms-border-radius: $border-radius;
+		-o-border-radius: $border-radius;
 		-webkit-appearance: none;
 		padding: calc(0.625rem - $input-border-width) calc(1rem - $input-border-width) calc(0.625rem + 1px - $input-border-width);
 		box-sizing: border-box;
-		
+
 		transition: border .2s ease;
 
 		&::-webkit-input-placeholder {
@@ -222,16 +194,16 @@ $required-helper-color: $color-red;
 			color: $input-placeholder-color;
 			font-family: $font-family-dafault, sans-serif;
 		}
-		
+
 		// &[type="number"] {
 		// 	-moz-appearance: textfield;
-			
+
 		// 	&::-webkit-outer-spin-button,
 		// 	&::-webkit-inner-spin-button {
 		// 			-webkit-appearance: none;
 		// 	}
 		// }
-		
+
 		@include hover() {
 			border-color: #e5e5e5;
 		}
@@ -240,8 +212,8 @@ $required-helper-color: $color-red;
 			border: 1px solid $color-green;
 			outline: none;
 		}
-		
-		+ .required-helper {
+
+		+.required-helper {
 			position: absolute;
 			left: 0;
 			top: calc(100% + .25rem);
@@ -249,23 +221,24 @@ $required-helper-color: $color-red;
 			line-height: 1.25;
 			color: $required-helper-color;
 			pointer-events: none;
-			
+
 			visibility: hidden;
 			opacity: 0;
 			transition: visibility .2s ease, opacity .2s ease;
 		}
-		
+
 		&.validation-required {
 			&:focus {
-			border-color: $color-red;
-				+ .required-helper {
+				border-color: $color-red;
+
+				+.required-helper {
 					visibility: visible;
 					opacity: 1;
 				}
 			}
 		}
 	}
-	
+
 	.textarea {
 		min-height: 6.75rem;
 		resize: none;
@@ -284,20 +257,20 @@ $required-helper-color: $color-red;
 		background-color: $color-green;
 		border-radius: .625rem;
 		margin-top: 1.5rem;
-		
+
 		transition: color .2s ease,
-								background-color .2s ease;
-		
+			background-color .2s ease;
+
 		&:disabled {
 			color: $btn-color;
 			background-color: $btn-bg-color;
 		}
 	}
-	
+
 	.required {
 		.label {
 			position: relative;
-			
+
 			&::before {
 				position: absolute;
 				top: 0;

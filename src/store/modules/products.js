@@ -1,10 +1,15 @@
 const state = {
-	products: []
+	products: [],
+	newId: ''
 };
 
 const mutations = {
 	SET_PRODUCTS_MOCKUP: (state, productsMockup) => {
 		state.products = productsMockup;
+	},
+	ADD_PRODUCT: (state, product) => {
+		state.newId = product.id + '';
+		state.products.unshift(product);
 	}
 };
 
@@ -14,9 +19,11 @@ const actions = {
 		commit("SET_PRODUCTS_MOCKUP", mockup.products);
 		return mockup;
 	},
-	// async CREATE_PRODUCT({ commit, payload }) {
-		
-	// }
+	CREATE_PRODUCT({ commit }, product) {
+		// отправка в бд
+		// установка в стейт
+		commit("ADD_PRODUCT", product)
+	}
 };
 
 const getters = {
