@@ -44,8 +44,8 @@
 			[formAdd.input]: true}"
 			type="submit"
 			value="Добавить товар"
+			:disabled="$v.info.$invalid"
 			@click.prevent="sendForm()" />
-			<!-- :disabled="$v.info.$invalid" -->
 	</form>
 </template>
 
