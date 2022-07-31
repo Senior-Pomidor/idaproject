@@ -1,5 +1,5 @@
 <template>
-  <article :ref="info.id" :class="card.card">
+  <article :class="card.card">
     <button :class="card['remove-btn']">
       <svg xmlns="http://www.w3.org/2000/svg">
         <g>
