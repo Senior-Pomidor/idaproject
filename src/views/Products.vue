@@ -10,27 +10,18 @@
 				
 				<article :class="products.content">
 					<div :class="products.filters">
-						<div :class="products.dropdown" name="sort" id="sort">
-							<button :class="products['dropdown-btn']">
-								По умолчанию
+						<div :class="{[products.dropdown]: true, [products.opened]: isDropdownOpened}">
+							<button :class="products['dropdown-btn']" @click="isDropdownOpened = !isDropdownOpened">
+								<span v-html="filter"></span>
 								<i :class="products['dropdown-icon']"></i>
 							</button>
 							<ul :class="products['dropdown-options']">
-								<li :class="products['dropdown-option']">
-									по умолчанию
-								</li>
-								<li :class="products['dropdown-option']">
-									по ввозрастанию цены
-								</li>
-								<li :class="products['dropdown-option']">
-									по убыванию цены
-								</li>
-								<li :class="products['dropdown-option']">
-									по названию
-								</li>
+								<li :class="products['dropdown-option']" @click="sortByPriceUp(), isDropdownOpened = !isDropdownOpened, setOption('priceUp')" v-html="filters.priceUp"></li>
+								<li :class="products['dropdown-option']" @click="sortByPriceDown(), isDropdownOpened = !isDropdownOpened, setOption('priceDown')" v-html="filters.priceDown"></li>
+								<li :class="products['dropdown-option']" @click="sortByName(), isDropdownOpened = !isDropdownOpened, setOption('name')" v-html="filters.name"></li>
 							</ul>
 							
-							<input type="hidden">
+							<!-- <input type="hidden" :name="{ name }" :value="{ value }"> -->
 						</div>
 					</div>
 					<div :class="products.cards">
@@ -56,14 +47,37 @@ export default {
 		Card,
 		FormAdd
 	},
+	data() {
+		return {
+			isDropdownOpened: false,
+			filter: 'По&nbsp;умолчанию',
+			filters: {
+				name: 'По&nbsp;названию',
+				priceUp: 'По&nbsp;возрастанию&nbsp;цены',
+				priceDown: 'По&nbsp;убыванию&nbsp;цены'
+			}
+		}
+	},
 	methods: {
-		...mapActions(['FETCH_PRODUCTS_MOCKUP'])
+		...mapActions(['FETCH_PRODUCTS_MOCKUP']),
+		sortByName() {
+			this.PRODUCTS.sort((a,b) => a.title.localeCompare(b.title));
+		},
+		sortByPriceUp() {
+			this.PRODUCTS.sort((a,b) => Number(a.price.replace(/ /g,'')) - Number(b.price.replace(/ /g,'')));
+		},
+		sortByPriceDown() {
+			this.PRODUCTS.sort((a,b) => Number(b.price.replace(/ /g,'')) - Number(a.price.replace(/ /g,'')));
+		},
+		setOption(option) {
+			this.filter = this.filters[option];
+		}
 	},
 	computed: {
 		...mapGetters(['PRODUCTS'])
 	},
 	mounted() {
-		this.FETCH_PRODUCTS_MOCKUP()
+		this.FETCH_PRODUCTS_MOCKUP();
 	}
 };
 </script>
@@ -73,6 +87,7 @@ export default {
 $font-color-dafault: #3F3F3F !default;
 $container-padding: 2rem !default;
 $font-family-dafault: Arial !default;
+$color-white: #FFFEFB !default;
 
 $header-margin-bottom: 1rem;
 $grid-gap: 1rem;
@@ -120,6 +135,30 @@ $grid-gap: 1rem;
 	
 	.filters {
 		grid-column: 1 / 4;
+		display: flex;
+		justify-content: flex-end;
+	}
+	
+	.dropdown {
+		position: relative;
+		
+		&.opened {
+			.dropdown-btn {
+				color: $color-black;
+			}
+			
+			.dropdown-icon {
+				top: initial;
+				bottom: -1px;
+				transform: rotate(45deg);
+			}
+			
+			.dropdown-options {
+				top: 100%;
+				opacity: 1;
+				visibility: visible;
+			}
+		}
 	}
 	
 	.dropdown-btn {
@@ -137,6 +176,12 @@ $grid-gap: 1rem;
     margin-bottom: 1rem;
     padding: 0.625rem 1rem calc(0.625rem + 1px);
     font-weight: 400;
+		cursor: pointer;
+		transition: color .2s ease;
+		
+		@include hover() {
+			color: $color-black;
+		}
 	}
 	
 	.dropdown-icon {
@@ -149,16 +194,42 @@ $grid-gap: 1rem;
 		border-left: 1px solid #B4B4B4;
 		margin-left: 6px;
 		transform-origin: 50% 50%;
-		transform: rotate(-135deg);
+		transform: rotate(225deg);
+		
+		transition: transform .2s ease;
 	}
-	
-	.dropdown {
-		display: flex;
-		flex-direction: column;
-	}
+
 	
 	.dropdown-options {
-		display: none;
+		position: absolute;
+		top: 80%;
+		right: 0;
+		display: block;
+		width: 100%;
+		min-width: 13rem;
+		max-width: 510px;
+		list-style-type: none;
+		border-radius: 4px;
+		background-color: $color-white;
+		box-shadow: 0px 20px 30px rgb(0 0 0 / 4%), 0px 6px 10px rgb(0 0 0 / 2%);
+		margin: 0;
+		padding: 0;
+		z-index: 2;
+		
+		visibility: hidden;
+		opacity: 0;
+		
+		transition: top .2s ease, opacity .2s ease, visibility .2s ease;
+	}
+	
+	.dropdown-option {
+		padding: 0.625rem 1rem;
+		cursor: pointer;
+		transition: color .2s ease;
+		
+		@include hover() {
+			color: $color-green;
+		}
 	}
 	
 
@@ -207,6 +278,15 @@ $grid-gap: 1rem;
 		
 		.content {
 			grid-column: initial;
+		}
+		
+		.filters {
+			position: sticky;
+			top: 1rem;
+			z-index: 2;
+		}
+		.dropdown-options {
+			width: calc(100vw - 2rem);
 		}
 	}
 }
