@@ -1,31 +1,31 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ef99ed7143987b07b093",
+    "revision": "5d77371d8b0c9ed96499",
     "url": "/idaproject/css/app.2cb04255.css"
   },
   {
-    "revision": "716c22075cd9c64cc023",
-    "url": "/idaproject/css/chunk-1a9db1d2.5e8a3360.css"
+    "revision": "dfa565514e0d0e148f3b",
+    "url": "/idaproject/css/chunk-f9c20e48.8e0fd5d0.css"
   },
   {
     "revision": "ff671c058f8c866e2044d7c7e8e7a689",
     "url": "/idaproject/img/content/img-card.jpg"
   },
   {
-    "revision": "64c87177381c65753d0c00fa6cdbffef",
+    "revision": "c8606e164939fc31f8ade09a1285a4d6",
     "url": "/idaproject/index.html"
   },
   {
-    "revision": "ef99ed7143987b07b093",
-    "url": "/idaproject/js/app.6df4c23d.js"
-  },
-  {
-    "revision": "716c22075cd9c64cc023",
-    "url": "/idaproject/js/chunk-1a9db1d2.321426d2.js"
+    "revision": "5d77371d8b0c9ed96499",
+    "url": "/idaproject/js/app.128d9c4b.js"
   },
   {
     "revision": "9eea83d28950dc34b58b",
     "url": "/idaproject/js/chunk-2d230cde.5f0f6d85.js"
+  },
+  {
+    "revision": "dfa565514e0d0e148f3b",
+    "url": "/idaproject/js/chunk-f9c20e48.897acb6b.js"
   },
   {
     "revision": "b91879838a35cb57a5cc",
