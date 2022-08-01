@@ -131,6 +131,9 @@ $transition-duration: 0.2s;
   }
 
   .link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     color: inherit;
     text-decoration: none;
     border-radius: inherit;
@@ -138,7 +141,7 @@ $transition-duration: 0.2s;
 
   .img-wrapper {
     position: relative;
-    flex: 1;
+    flex: 0;
     width: 100%;
     border-top-left-radius: $border-radius;
     border-top-right-radius: $border-radius;
@@ -154,6 +157,9 @@ $transition-duration: 0.2s;
   }
 
   .info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
     padding: 1rem;
     padding-bottom: 1.5rem;
   }
@@ -168,6 +174,7 @@ $transition-duration: 0.2s;
   }
 
   .description {
+    flex: 1 1 auto;
     font-weight: 400;
     line-height: 1.25;
     margin: 0;
