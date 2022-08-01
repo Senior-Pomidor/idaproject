@@ -1,6 +1,6 @@
 <template>
   <article :class="card.card">
-    <button :class="card['remove-btn']">
+    <button :class="card['remove-btn']" @click="remove()">
       <svg xmlns="http://www.w3.org/2000/svg">
         <g>
           <path
@@ -47,6 +47,8 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+  
   export default {
     name: 'card',
     props: {
@@ -54,6 +56,7 @@
         type: Object,
         default() {
           return {
+              id: null,
               link: null,
               image: "img/content/product.jpg",
               title: null,
@@ -62,6 +65,13 @@
               currency: null
           }
         }
+      }
+    },
+    methods: {
+      ...mapActions(['DELETE_PRODUCT']),
+      remove() {
+        this.DELETE_PRODUCT(this.info.id);
+        alert(`${this.info.title} успешно удалён`)
       }
     }
   }

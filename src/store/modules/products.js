@@ -10,6 +10,13 @@ const mutations = {
 	ADD_PRODUCT: (state, product) => {
 		state.newId = product.id + '';
 		state.products.unshift(product);
+	},
+	DELETE_PRODUCT: (state, productId) => {
+		const index = state.products.findIndex(product => {
+				return product.id == productId
+			}
+		)
+		state.products.splice(index, 1);
 	}
 };
 
@@ -20,9 +27,16 @@ const actions = {
 		return mockup;
 	},
 	CREATE_PRODUCT({ commit }, product) {
-		// отправка в бд
+		// отправка в БД
+		// ...
 		// установка в стейт
 		commit("ADD_PRODUCT", product)
+	},
+	DELETE_PRODUCT({ commit }, productId) {
+		// удаление из БД
+		// ...
+		// удаление из стейта
+		commit("DELETE_PRODUCT", productId)
 	}
 };
 
