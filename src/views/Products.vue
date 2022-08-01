@@ -86,8 +86,12 @@ export default {
 // Дефолтные значения переменных, если не заданы глобальные
 $font-color-dafault: #3F3F3F !default;
 $container-padding: 2rem !default;
-$font-family-dafault: Arial !default;
+$container-padding--mobile: 1rem !default;
+$font-family-default: Arial !default;
 $color-white: #FFFEFB !default;
+$color-black: #3F3F3F !default;
+$color-grey: #B4B4B4 !default;
+$color-green: #7BAE73 !default;
 
 $header-margin-bottom: 1rem;
 $grid-gap: 1rem;
@@ -165,10 +169,10 @@ $grid-gap: 1rem;
     display: flex;
     align-items: center;
     align-self: flex-end;
-		font-family: $font-family-dafault, sans-serif;
+		font-family: $font-family-default, sans-serif;
     font-size: 0.75rem;
     line-height: 1.25;
-    color: #B4B4B4;
+    color: $color-grey;
     background-color: #fff;
     border: none;
     border-radius: 0.25rem;
@@ -190,8 +194,8 @@ $grid-gap: 1rem;
 		display: inline-block;
 		width: 5px;
 		height: 5px;
-		border-top: 1px solid #B4B4B4;
-		border-left: 1px solid #B4B4B4;
+		border-top: 1px solid $color-grey;
+		border-left: 1px solid $color-grey;
 		margin-left: 6px;
 		transform-origin: 50% 50%;
 		transform: rotate(225deg);
@@ -206,8 +210,8 @@ $grid-gap: 1rem;
 		right: 0;
 		display: block;
 		width: 100%;
-		min-width: 13rem;
 		max-width: 510px;
+		min-width: fit-content;
 		list-style-type: none;
 		border-radius: 4px;
 		background-color: $color-white;
@@ -253,7 +257,7 @@ $grid-gap: 1rem;
 	@include breakpoint($breakpoint-sm) {
 		.container {
 			grid-template-columns: repeat(2, 1fr);
-			padding: 1rem;
+			padding: $container-padding--mobile;
 		}
 		
 		.content {
@@ -286,7 +290,7 @@ $grid-gap: 1rem;
 			z-index: 2;
 		}
 		.dropdown-options {
-			width: calc(100vw - 2rem);
+			width: calc(100vw - $container-padding--mobile * 2);
 		}
 	}
 }

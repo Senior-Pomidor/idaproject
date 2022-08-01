@@ -111,11 +111,10 @@ $font-color-dafault: #49485e !default;
 $color-black: #3f3f3f !default;
 $color-white: #fffefb !default;
 $color-grey: #b4b4b4 !default;
-$color-green: #7bae73 !default;
-$font-family-dafault: Arial !default;
+$font-family-default: Arial !default;
 $color-grey-light: #eeeeee !default;
 $color-red: #FF8484 !default;
-$color-green: #00A76B !default;
+$color-green: #7BAE73 !default;
 
 // $font-color: red;
 $bg-color: $color-white;
@@ -126,11 +125,13 @@ $input-bg-color: $color-white;
 $input-placeholder-color: $color-grey;
 $input-border-width: 1px;
 
-$btn-color: $input-placeholder-color;
-$btn-bg-color: $color-grey-light;
 
-$btn-color--active: #fff;
-$btn-bg-color--active: $color-green;
+$btn-color: #fff;
+$btn-bg-color: $color-green;
+
+$btn-color--disabled: $input-placeholder-color;
+$btn-bg-color--disabled: $color-grey-light;
+
 $required-helper-color: $color-red;
 
 .form-add {
@@ -164,7 +165,7 @@ $required-helper-color: $color-red;
 		position: relative;
 		width: 100%;
 
-		font-family: $font-family-dafault;
+		font-family: $font-family-default;
 		color: $input-font-color;
 		font-size: 0.75rem;
 		line-height: 1.25;
@@ -186,13 +187,13 @@ $required-helper-color: $color-red;
 
 		&::-webkit-input-placeholder {
 			color: $input-placeholder-color;
-			font-family: $font-family-dafault, sans-serif;
+			font-family: $font-family-default, sans-serif;
 		}
 
 		&::-moz-placeholder,
 		&:-moz-placeholder {
 			color: $input-placeholder-color;
-			font-family: $font-family-dafault, sans-serif;
+			font-family: $font-family-default, sans-serif;
 		}
 
 		// &[type="number"] {
@@ -249,12 +250,12 @@ $required-helper-color: $color-red;
 		width: 100%;
 
 		text-align: center;
-		color: white;
+		color: $btn-color;
 		font-weight: 600;
-		font-family: $font-family-dafault;
+		font-family: $font-family-default;
 		letter-spacing: -0.02em;
 
-		background-color: $color-green;
+		background-color: $btn-bg-color;
 		border-radius: .625rem;
 		margin-top: 1.5rem;
 
@@ -262,8 +263,8 @@ $required-helper-color: $color-red;
 			background-color .2s ease;
 
 		&:disabled {
-			color: $btn-color;
-			background-color: $btn-bg-color;
+			color: $btn-color--disabled;
+			background-color: $btn-bg-color--disabled;
 		}
 	}
 
