@@ -10,27 +10,18 @@
 				
 				<article :class="products.content">
 					<div :class="products.filters">
-						<div :class="{[products.dropdown]: true, [products.opened]: isDropdownOpened}" name="sort" id="sort">
+						<div :class="{[products.dropdown]: true, [products.opened]: isDropdownOpened}">
 							<button :class="products['dropdown-btn']" @click="isDropdownOpened = !isDropdownOpened">
-								По умолчанию
+								<span v-html="filter"></span>
 								<i :class="products['dropdown-icon']"></i>
 							</button>
 							<ul :class="products['dropdown-options']">
-								<li :class="products['dropdown-option']">
-									По&nbsp;умолчанию
-								</li>
-								<li :class="products['dropdown-option']">
-									По&nbsp;возрастанию&nbsp;цены
-								</li>
-								<li :class="products['dropdown-option']">
-									По&nbsp;убыванию&nbsp;цены
-								</li>
-								<li :class="products['dropdown-option']">
-									По&nbsp;названию
-								</li>
+								<li :class="products['dropdown-option']" @click="sortByPriceUp(), isDropdownOpened = !isDropdownOpened, setOption('priceUp')" v-html="filters.priceUp"></li>
+								<li :class="products['dropdown-option']" @click="sortByPriceDown(), isDropdownOpened = !isDropdownOpened, setOption('priceDown')" v-html="filters.priceDown"></li>
+								<li :class="products['dropdown-option']" @click="sortByName(), isDropdownOpened = !isDropdownOpened, setOption('name')" v-html="filters.name"></li>
 							</ul>
 							
-							<input type="hidden">
+							<!-- <input type="hidden" :name="{ name }" :value="{ value }"> -->
 						</div>
 					</div>
 					<div :class="products.cards">
@@ -58,17 +49,35 @@ export default {
 	},
 	data() {
 		return {
-			isDropdownOpened: false
+			isDropdownOpened: false,
+			filter: 'По&nbsp;умолчанию',
+			filters: {
+				name: 'По&nbsp;названию',
+				priceUp: 'По&nbsp;возрастанию&nbsp;цены',
+				priceDown: 'По&nbsp;убыванию&nbsp;цены'
+			}
 		}
 	},
 	methods: {
-		...mapActions(['FETCH_PRODUCTS_MOCKUP'])
+		...mapActions(['FETCH_PRODUCTS_MOCKUP']),
+		sortByName() {
+			this.PRODUCTS.sort((a,b) => a.title.localeCompare(b.title));
+		},
+		sortByPriceUp() {
+			this.PRODUCTS.sort((a,b) => Number(a.price.replace(/ /g,'')) - Number(b.price.replace(/ /g,'')));
+		},
+		sortByPriceDown() {
+			this.PRODUCTS.sort((a,b) => Number(b.price.replace(/ /g,'')) - Number(a.price.replace(/ /g,'')));
+		},
+		setOption(option) {
+			this.filter = this.filters[option];
+		}
 	},
 	computed: {
 		...mapGetters(['PRODUCTS'])
 	},
 	mounted() {
-		this.FETCH_PRODUCTS_MOCKUP()
+		this.FETCH_PRODUCTS_MOCKUP();
 	}
 };
 </script>
