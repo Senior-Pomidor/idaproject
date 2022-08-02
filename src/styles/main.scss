@@ -15,5 +15,9 @@ body {
 	padding: 0 $container-padding;
 	margin: 0 auto;
 	box-sizing: border-box;
+	
+	@include breakpoint($breakpoint-sm) {
+		padding: 0 $container-padding--mobile;
+	}
 }
 
