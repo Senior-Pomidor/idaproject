@@ -5,57 +5,66 @@
 				<h1 :class="products.title">
 					Добавление товара
 				</h1>
-				
+
 				<div :class="products.sort">
-							<div :class="{[products.dropdown]: true, [products.opened]: isDropdownOpened}">
-								<button :class="products['dropdown-btn']" @click="isDropdownOpened = !isDropdownOpened">
-									<span v-html="filter"></span>
-									<i :class="products['dropdown-icon']"></i>
-								</button>
-								<ul :class="products['options']">
-									<li :class="products['option']" @click="sortByPriceUp(), isDropdownOpened = !isDropdownOpened, setOption('priceUp')" v-html="filters.priceUp"></li>
-									<li :class="products['option']" @click="sortByPriceDown(), isDropdownOpened = !isDropdownOpened, setOption('priceDown')" v-html="filters.priceDown"></li>
-									<li :class="products['option']" @click="sortByName(), isDropdownOpened = !isDropdownOpened, setOption('name')" v-html="filters.name"></li>
-								</ul>
-								
-								<!-- <input type="hidden" :name="{ name }" :value="{ value }"> -->
-							</div>
+					<div :class="{ [products.dropdown]: true, [products.opened]: isDropdownOpened }">
+						<button :class="products['dropdown-btn']" @click="isDropdownOpened = !isDropdownOpened">
+							<span v-html="filter"></span>
+							<i :class="products['dropdown-icon']"></i>
+						</button>
+						<ul :class="products['options']">
+							<li :class="products['option']"
+								@click="sortByPriceUp(), isDropdownOpened = !isDropdownOpened, setOption('priceUp')"
+								v-html="filters.priceUp"></li>
+							<li :class="products['option']"
+								@click="sortByPriceDown(), isDropdownOpened = !isDropdownOpened, setOption('priceDown')"
+								v-html="filters.priceDown"></li>
+							<li :class="products['option']"
+								@click="sortByName(), isDropdownOpened = !isDropdownOpened, setOption('name')" v-html="filters.name">
+							</li>
+						</ul>
+
+						<!-- <input type="hidden" :name="{ name }" :value="{ value }"> -->
+					</div>
 				</div>
 			</div>
 		</header>
-		
-		<main :class="products.products">
-				<div :class="products.container" class="container">
-					<aside :class="products.aside">
 
-						<FormAdd :class="products.form" />
-					</aside>
-					
-					<article :class="products.content">
-							<div :class="products.sort">
-										<div :class="{[products.dropdown]: true, [products.opened]: isDropdownOpened}">
-											<button :class="products['dropdown-btn']" @click="isDropdownOpened = !isDropdownOpened">
-												<span v-html="filter"></span>
-												<i :class="products['dropdown-icon']"></i>
-											</button>
-											<ul :class="products['options']">
-												<li :class="products['option']" @click="sortByPriceUp(), isDropdownOpened = !isDropdownOpened, setOption('priceUp')" v-html="filters.priceUp"></li>
-												<li :class="products['option']" @click="sortByPriceDown(), isDropdownOpened = !isDropdownOpened, setOption('priceDown')" v-html="filters.priceDown"></li>
-												<li :class="products['option']" @click="sortByName(), isDropdownOpened = !isDropdownOpened, setOption('name')" v-html="filters.name"></li>
-											</ul>
-											
-											<!-- <input type="hidden" :name="{ name }" :value="{ value }"> -->
-										</div>
-							</div>
-						<div :class="products.cards">
-							<Card
-									v-for="product in PRODUCTS"
-									:key="product.id"
-									:info="product"
-									:class="{ [products['new-product']]: product.id == $store.state.products.newId }" />
+		<main :class="products.main">
+			<div :class="products.container" class="container">
+				<aside :class="products.aside">
+					<FormAdd :class="products.form" />
+				</aside>
+
+				<article :class="products.content">
+					<div :class="products.sort">
+						<div :class="{ [products.dropdown]: true, [products.opened]: isDropdownOpened }">
+							<button :class="products['dropdown-btn']" @click="isDropdownOpened = !isDropdownOpened">
+								<span v-html="filter"></span>
+								<i :class="products['dropdown-icon']"></i>
+							</button>
+							<ul :class="products['options']">
+								<li :class="products['option']"
+									@click="sortByPriceUp(), isDropdownOpened = !isDropdownOpened, setOption('priceUp')"
+									v-html="filters.priceUp"></li>
+								<li :class="products['option']"
+									@click="sortByPriceDown(), isDropdownOpened = !isDropdownOpened, setOption('priceDown')"
+									v-html="filters.priceDown"></li>
+								<li :class="products['option']"
+									@click="sortByName(), isDropdownOpened = !isDropdownOpened, setOption('name')" v-html="filters.name">
+								</li>
+							</ul>
+
+							<!-- <input type="hidden" :name="{ name }" :value="{ value }"> -->
 						</div>
-					</article>
-				</div>
+					</div>
+					
+					<div :class="products.cards">
+						<Card v-for="product in PRODUCTS" :key="product.id" :info="product"
+							:class="{ [products['new-product']]: product.id == $store.state.products.newId }" />
+					</div>
+				</article>
+			</div>
 		</main>
 	</div>
 </template>
@@ -63,7 +72,7 @@
 <script>
 import Card from "@/components/Card";
 import FormAdd from "@/components/FormAdd";
-import {mapActions, mapGetters} from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
 	name: "products",
@@ -85,13 +94,13 @@ export default {
 	methods: {
 		...mapActions(['FETCH_PRODUCTS_MOCKUP']),
 		sortByName() {
-			this.PRODUCTS.sort((a,b) => a.title.localeCompare(b.title));
+			this.PRODUCTS.sort((a, b) => a.title.localeCompare(b.title));
 		},
 		sortByPriceUp() {
-			this.PRODUCTS.sort((a,b) => Number(a.price.replace(/ /g,'')) - Number(b.price.replace(/ /g,'')));
+			this.PRODUCTS.sort((a, b) => Number(a.price.replace(/ /g, '')) - Number(b.price.replace(/ /g, '')));
 		},
 		sortByPriceDown() {
-			this.PRODUCTS.sort((a,b) => Number(b.price.replace(/ /g,'')) - Number(a.price.replace(/ /g,'')));
+			this.PRODUCTS.sort((a, b) => Number(b.price.replace(/ /g, '')) - Number(a.price.replace(/ /g, '')));
 		},
 		setOption(option) {
 			this.filter = this.filters[option];
@@ -123,244 +132,233 @@ $grid-gap: 1rem;
 	color: $font-color-dafault;
 }
 
-
-	
-	.header {
-		padding: $header-pading 0;
-		
-		.container {
-			display: flex;
-			justify-content: space-between;
-		}
-		
-		.title {
-			font-size: 1.75rem;
-			font-weight: 600;
-			line-height: 1.25;
-			margin: 0;
-			// margin-bottom: 1rem;
-		}
-		
-		
-		@include breakpoint($breakpoint-xs) {
-			.sort {
-				display: none;
-			}
-		}
-	}
-	
-	.dropdown {
-			position: relative;
-			color: $color-grey;
-			// margin-bottom: 1rem;
-			
-			.dropdown-btn {
-				display: flex;
-				align-items: center;
-				align-self: flex-end;
-				font-family: $font-family-default, sans-serif;
-				font-size: 0.75rem;
-				line-height: 1.25;
-				color: inherit;
-				background-color: $color-white;
-				border: none;
-				border-radius: 0.25rem;
-				box-shadow: 0px 2px 5px rgb(0 0 0 / 10%);
-				// margin-bottom: 1rem;
-				padding: 0.625rem 1rem calc(0.625rem + 1px);
-				font-weight: 400;
-				cursor: pointer;
-				transition: color .2s ease;
-				
-				@include hover() {
-					color: $font-color-dafault;
-					
-					.dropdown-icon {
-						border-color: $font-color-dafault;
-					}
-				}
-			}
-		
-			.dropdown-icon {
-				position: relative;
-				top: -1px;
-				display: inline-block;
-				width: 5px;
-				height: 5px;
-				border-top: 1px solid $color-grey;
-				border-left: 1px solid $color-grey;
-				margin-left: 6px;
-				transform-origin: 50% 50%;
-				transform: rotate(225deg);
-				
-				transition: transform .2s ease, border-color .2s ease;
-			}
-			
-			.options {
-				position: absolute;
-				top: 80%;
-				right: 0;
-				display: block;
-				width: 100%;
-				max-width: 510px;
-				min-width: fit-content;
-				list-style-type: none;
-				border-radius: 4px;
-				background-color: $color-white;
-				box-shadow: 0px 20px 30px rgb(0 0 0 / 4%), 0px 6px 10px rgb(0 0 0 / 2%);
-				margin: 0;
-				padding: 0;
-				z-index: 2;
-				
-				visibility: hidden;
-				opacity: 0;
-				
-				transition: top .2s ease, opacity .2s ease, visibility .2s ease;
-			}
-		
-			.option {
-				color: inherit;
-				font-size: .825rem;
-				padding: 0.625rem 1rem;
-				cursor: pointer;
-				transition: color .2s ease;
-				
-				@include hover() {
-					color: $font-color-dafault;
-				}
-				
-				@media (hover: none) {
-					color: $font-color-dafault;
-				}
-			}
-			
-			&.opened {
-				.dropdown-btn {
-					color: $font-color-dafault;
-				}
-				
-				.dropdown-icon {
-					top: initial;
-					bottom: -1px;
-					border-color: $font-color-dafault;
-					transform: rotate(45deg);
-				}
-				
-				.options {
-					top: calc(100% + $header-pading);
-					opacity: 1;
-					visibility: visible;
-				}
-			}
-			
-			@include breakpoint($breakpoint-xs) {
-				.options {
-					width: 100%;
-				}
-			}
-	}
-		
-.products {
-	@keyframes newProduct {
-		from {
-			opacity: .2;
-		}
-		to {
-			opacity: 1;
-		}
-	}
-	
-	.new-product {
-		animation-name: newProduct;
-		animation-duration: 1.5s;
-	}
+.header {
+	padding: $header-pading 0;
 
 	.container {
-		// display: grid;
-		// display: -ms-grid;
-		// grid-template-columns: repeat(4, 1fr);
-		// column-gap: $grid-gap;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.title {
+		font-size: 1.75rem;
+		font-weight: 600;
+		margin: 0;
+	}
+
+
+	@include breakpoint($breakpoint-xs) {
+		.sort {
+			display: none;
+		}
+	}
+}
+
+.dropdown {
+	position: relative;
+	color: $color-grey;
+	// margin-bottom: 1rem;
+
+	.dropdown-btn {
+		display: flex;
+		align-items: center;
+		align-self: flex-end;
+		font-family: $font-family-default, sans-serif;
+		font-size: 0.75rem;
+		line-height: 1.25;
+		color: inherit;
+		background-color: $color-white;
+		border: none;
+		border-radius: 0.25rem;
+		box-shadow: 0px 2px 5px rgb(0 0 0 / 10%);
+		// margin-bottom: 1rem;
+		padding: 0.625rem 1rem calc(0.625rem + 1px);
+		font-weight: 400;
+		cursor: pointer;
+		transition: color .2s ease;
+
+		@include hover() {
+			color: $font-color-dafault;
+
+			.dropdown-icon {
+				border-color: $font-color-dafault;
+			}
+		}
+	}
+
+	.dropdown-icon {
+		position: relative;
+		top: -1px;
+		display: inline-block;
+		width: 5px;
+		height: 5px;
+		border-top: 1px solid $color-grey;
+		border-left: 1px solid $color-grey;
+		margin-left: 6px;
+		transform-origin: 50% 50%;
+		transform: rotate(225deg);
+
+		transition: transform .2s ease, border-color .2s ease;
+	}
+
+	.options {
+		position: absolute;
+		top: 80%;
+		right: 0;
+		display: block;
+		width: 100%;
+		max-width: 510px;
+		min-width: fit-content;
+		list-style-type: none;
+		border-radius: 4px;
+		background-color: $color-white;
+		box-shadow: 0px 20px 30px rgb(0 0 0 / 4%), 0px 6px 10px rgb(0 0 0 / 2%);
+		margin: 0;
+		padding: 0;
+		z-index: 2;
+
+		visibility: hidden;
+		opacity: 0;
+
+		transition: top .2s ease, opacity .2s ease, visibility .2s ease;
+	}
+
+	.option {
+		color: inherit;
+		font-size: .825rem;
+		padding: 0.625rem 1rem;
+		cursor: pointer;
+		transition: color .2s ease;
+
+		@include hover() {
+			color: $font-color-dafault;
+		}
+
+		@media (hover: none) {
+			color: $font-color-dafault;
+		}
+	}
+
+	&.opened {
+		.dropdown-btn {
+			color: $font-color-dafault;
+		}
+
+		.dropdown-icon {
+			top: initial;
+			bottom: -1px;
+			border-color: $font-color-dafault;
+			transform: rotate(45deg);
+		}
+
+		.options {
+			top: calc(100% + $header-pading);
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+
+	@include breakpoint($breakpoint-xs) {
+		.options {
+			width: 100%;
+		}
+	}
+}
+
+.main {
+	.container {
+		display: grid;
+		display: -ms-grid;
+		grid-template-columns: repeat(4, 1fr);
+		column-gap: $grid-gap;
 		// padding: $container-padding;
 	}
-	
 
-	
 	.form {
 		position: sticky;
 		top: $grid-gap;
 	}
-	
+
 	.content {
 		grid-column: 2 / 5;
 	}
-	
 
 	.sort {
 		display: none;
 		margin-bottom: 1rem;
 	}
 
-	
-
 	.cards {
 		display: grid;
 		display: -ms-grid;
 		grid-template-columns: repeat(3, 1fr);
-		gap: $grid-gap $grid-gap;
+		gap: $grid-gap;
 	}
 	
+	@keyframes newProduct {
+		from {
+			opacity: .2;
+		}
+
+		to {
+			opacity: 1;
+		}
+	}
+
+	.new-product {
+		animation-name: newProduct;
+		animation-duration: 1.5s;
+	}
+
 	@include breakpoint($breakpoint-md) {
 		.container {
 			grid-template-columns: repeat(3, 1fr);
 		}
-		
+
 		.cards {
 			grid-template-columns: repeat(2, 1fr);
 		}
 	}
-	
+
 	@include breakpoint($breakpoint-sm) {
 		.container {
 			grid-template-columns: repeat(2, 1fr);
 			// padding: $container-padding--mobile;
 		}
-		
+
 		.content {
 			grid-columns: initial;
 		}
-		
+
 		.cards {
 			grid-template-columns: repeat(1, 1fr);
 		}
 	}
-	
+
 	@include breakpoint($breakpoint-xs) {
-		.header {
-			
-			// .filters {
-			// 	display: none;
-			// }
-		}
+
 		.container {
 			grid-template-columns: 1fr;
 		}
-		
+
 		.aside {
 			> :last-child {
 				margin-bottom: 2rem;
 			}
 		}
-		
+
 		.content {
 			grid-column: initial;
 		}
-		
+
 		.sort {
-			display: block;
+			display: flex;
+			justify-content: flex-end;
 			position: sticky;
 			top: 1rem;
 			z-index: 2;
 		}
+
 		// .dropdown {
 		// 	.options {
 		// 		width: calc(100vw - $container-padding--mobile * 2);

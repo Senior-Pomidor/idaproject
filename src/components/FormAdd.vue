@@ -128,6 +128,7 @@ $input-border-width: 1px;
 
 $btn-color: #fff;
 $btn-bg-color: $color-green;
+$btn-font-family: Inter;
 
 $btn-color--disabled: $input-placeholder-color;
 $btn-bg-color--disabled: $color-grey-light;
@@ -252,7 +253,7 @@ $required-helper-color: $color-red;
 		text-align: center;
 		color: $btn-color;
 		font-weight: 600;
-		font-family: $font-family-default;
+		font-family: $btn-font-family, sans-serif;
 		letter-spacing: -0.02em;
 
 		background-color: $btn-bg-color;
@@ -275,7 +276,7 @@ $required-helper-color: $color-red;
 			&::before {
 				position: absolute;
 				top: 0;
-				left: 100%;
+				left: 101%;
 				display: block;
 				width: .25rem;
 				height: .25rem;
