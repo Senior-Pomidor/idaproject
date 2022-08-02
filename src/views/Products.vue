@@ -60,8 +60,9 @@
 					</div>
 					
 					<div :class="products.cards">
-						<Card v-for="product in PRODUCTS" :key="product.id" :info="product"
-							:class="{ [products['new-product']]: product.id == $store.state.products.newId }" />
+						<Product v-for="product in PRODUCTS" :key="product.id"
+							:info="product"
+							:class="{ [products['new-product']]: product.id == $store.state.products.newId, [products.product]: true }" />
 					</div>
 				</article>
 			</div>
@@ -70,14 +71,14 @@
 </template>
 
 <script>
-import Card from "@/components/Card";
+import Product from "@/components/Product";
 import FormAdd from "@/components/FormAdd";
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
 	name: "products",
 	components: {
-		Card,
+		Product,
 		FormAdd
 	},
 	data() {
@@ -133,7 +134,7 @@ $grid-gap: 1rem;
 }
 
 .header {
-	padding: $header-pading 0;
+	padding: $container-padding 0 $header-pading;
 
 	.container {
 		display: flex;
@@ -210,7 +211,7 @@ $grid-gap: 1rem;
 		max-width: 510px;
 		min-width: fit-content;
 		list-style-type: none;
-		border-radius: 4px;
+		border-radius: .25rem;
 		background-color: $color-white;
 		box-shadow: 0px 20px 30px rgb(0 0 0 / 4%), 0px 6px 10px rgb(0 0 0 / 2%);
 		margin: 0;
@@ -266,10 +267,11 @@ $grid-gap: 1rem;
 }
 
 .main {
+	padding-bottom: $container-padding;
 	.container {
 		display: grid;
 		display: -ms-grid;
-		grid-template-columns: repeat(4, 1fr);
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		column-gap: $grid-gap;
 		// padding: $container-padding;
 	}
@@ -277,10 +279,11 @@ $grid-gap: 1rem;
 	.form {
 		position: sticky;
 		top: $grid-gap;
+		margin-bottom: $grid-gap;
 	}
 
 	.content {
-		grid-column: 2 / 5;
+		grid-column: 2 / -1;
 	}
 
 	.sort {
@@ -291,7 +294,7 @@ $grid-gap: 1rem;
 	.cards {
 		display: grid;
 		display: -ms-grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		gap: $grid-gap;
 	}
 	
@@ -312,26 +315,32 @@ $grid-gap: 1rem;
 
 	@include breakpoint($breakpoint-md) {
 		.container {
-			grid-template-columns: repeat(3, 1fr);
+			grid-template-columns: 300px auto;
 		}
 
 		.cards {
-			grid-template-columns: repeat(2, 1fr);
+			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		}
+		
+		.product {
+			margin: 0 auto;
 		}
 	}
 
 	@include breakpoint($breakpoint-sm) {
 		.container {
-			grid-template-columns: repeat(2, 1fr);
-			// padding: $container-padding--mobile;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		}
+		
+		.aside {
+			display: flex;
+			justify-content: center;
+			align-items: flex-start;
 		}
 
 		.content {
-			grid-columns: initial;
-		}
-
-		.cards {
-			grid-template-columns: repeat(1, 1fr);
+			grid-template-columns: repeat(auto-fit, min-max(300px, 1fr));
+			grid-column: initial;
 		}
 	}
 
@@ -358,12 +367,6 @@ $grid-gap: 1rem;
 			top: 1rem;
 			z-index: 2;
 		}
-
-		// .dropdown {
-		// 	.options {
-		// 		width: calc(100vw - $container-padding--mobile * 2);
-		// 	}
-		// }
 	}
 }
 </style>

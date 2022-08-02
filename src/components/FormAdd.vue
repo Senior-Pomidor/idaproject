@@ -137,7 +137,7 @@ $required-helper-color: $color-red;
 
 .form-add {
 	width: 100%;
-	max-width: 470px;
+	max-width: 400px;
 	background-color: $bg-color;
 	border-radius: $border-radius;
 	padding: 1.5rem;

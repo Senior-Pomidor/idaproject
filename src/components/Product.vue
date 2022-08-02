@@ -1,6 +1,6 @@
 <template>
-	<article :class="card.card">
-		<button :class="card['remove-btn']" @click="remove()">
+	<article :class="product.product">
+		<button :class="product['remove-btn']" @click="remove()">
 			<svg xmlns="http://www.w3.org/2000/svg">
 				<g>
 					<path
@@ -24,17 +24,17 @@
 			</svg>
 		</button>
 
-		<router-link to="/" :class="card.link">
-			<div :class="card['img-wrapper']">
-				<img :class="card.img" :src="info.image" :alt="info.title" />
+		<router-link to="/" :class="product.link">
+			<div :class="product['img-wrapper']">
+				<img :class="product.img" :src="info.image" :alt="info.title" />
 			</div>
 
-			<div :class="card.info">
-				<h1 :class="card.title">{{ info.title }}</h1>
-				<p :class="card.description" v-html="info.description">
+			<div :class="product.info">
+				<h1 :class="product.title">{{ info.title }}</h1>
+				<p :class="product.description" v-html="info.description">
 				</p>
 
-				<strong :class="card.price"> {{ info.price }} {{ info.currency }} </strong>
+				<strong :class="product.price"> {{ info.price }} {{ info.currency }} </strong>
 			</div>
 		</router-link>
 	</article>
@@ -44,7 +44,7 @@
 import { mapActions } from 'vuex'
 
 export default {
-	name: 'card',
+	name: 'product',
 	props: {
 		info: {
 			type: Object,
@@ -71,7 +71,7 @@ export default {
 }
 </script>
 
-<style lang="scss" module="card">
+<style lang="scss" module="product">
 // Дефолтные значения переменных, если не заданы глобальные
 $bg-color: #fffefb !default;
 $font-color: #3f3f3f !default;
@@ -83,10 +83,10 @@ $remove-btn-bg: $color-red;
 $border-radius: 0.25rem;
 $transition-duration: 0.2s;
 
-.card {
+.product {
 	position: relative;
 	width: 100%;
-	max-width: 470px;
+	max-width: 400px;
 	line-height: 1.25;
 	color: $font-color;
 	background-color: $bg-color;
@@ -147,7 +147,6 @@ $transition-duration: 0.2s;
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		// object-fit: cover;
 	}
 
 	.info {
