@@ -15,10 +15,10 @@
 								<span v-html="filter"></span>
 								<i :class="products['dropdown-icon']"></i>
 							</button>
-							<ul :class="products['dropdown-options']">
-								<li :class="products['dropdown-option']" @click="sortByPriceUp(), isDropdownOpened = !isDropdownOpened, setOption('priceUp')" v-html="filters.priceUp"></li>
-								<li :class="products['dropdown-option']" @click="sortByPriceDown(), isDropdownOpened = !isDropdownOpened, setOption('priceDown')" v-html="filters.priceDown"></li>
-								<li :class="products['dropdown-option']" @click="sortByName(), isDropdownOpened = !isDropdownOpened, setOption('name')" v-html="filters.name"></li>
+							<ul :class="products['options']">
+								<li :class="products['option']" @click="sortByPriceUp(), isDropdownOpened = !isDropdownOpened, setOption('priceUp')" v-html="filters.priceUp"></li>
+								<li :class="products['option']" @click="sortByPriceDown(), isDropdownOpened = !isDropdownOpened, setOption('priceDown')" v-html="filters.priceDown"></li>
+								<li :class="products['option']" @click="sortByName(), isDropdownOpened = !isDropdownOpened, setOption('name')" v-html="filters.name"></li>
 							</ul>
 							
 							<!-- <input type="hidden" :name="{ name }" :value="{ value }"> -->
@@ -89,12 +89,12 @@ $container-padding: 2rem !default;
 $container-padding--mobile: 1rem !default;
 $font-family-default: Arial !default;
 $color-white: #FFFEFB !default;
-$color-black: #3F3F3F !default;
 $color-grey: #B4B4B4 !default;
 $color-green: #7BAE73 !default;
 
 $header-margin-bottom: 1rem;
 $grid-gap: 1rem;
+
 .products {
 	color: $font-color-dafault;
 	
@@ -145,94 +145,105 @@ $grid-gap: 1rem;
 	
 	.dropdown {
 		position: relative;
+		color: $color-grey;
+		
+		.dropdown-btn {
+			display: flex;
+			align-items: center;
+			align-self: flex-end;
+			font-family: $font-family-default, sans-serif;
+			font-size: 0.75rem;
+			line-height: 1.25;
+			color: inherit;
+			background-color: $color-white;
+			border: none;
+			border-radius: 0.25rem;
+			box-shadow: 0px 2px 5px rgb(0 0 0 / 10%);
+			margin-bottom: 1rem;
+			padding: 0.625rem 1rem calc(0.625rem + 1px);
+			font-weight: 400;
+			cursor: pointer;
+			transition: color .2s ease;
+			
+			@include hover() {
+				color: $font-color-dafault;
+				
+				.dropdown-icon {
+					border-color: $font-color-dafault;
+				}
+			}
+		}
+	
+		.dropdown-icon {
+			position: relative;
+			top: -1px;
+			display: inline-block;
+			width: 5px;
+			height: 5px;
+			border-top: 1px solid $color-grey;
+			border-left: 1px solid $color-grey;
+			margin-left: 6px;
+			transform-origin: 50% 50%;
+			transform: rotate(225deg);
+			
+			transition: transform .2s ease, border-color .2s ease;
+		}
+		
+		.options {
+			position: absolute;
+			top: 80%;
+			right: 0;
+			display: block;
+			width: 100%;
+			max-width: 510px;
+			min-width: fit-content;
+			list-style-type: none;
+			border-radius: 4px;
+			background-color: $color-white;
+			box-shadow: 0px 20px 30px rgb(0 0 0 / 4%), 0px 6px 10px rgb(0 0 0 / 2%);
+			margin: 0;
+			padding: 0;
+			z-index: 2;
+			
+			visibility: hidden;
+			opacity: 0;
+			
+			transition: top .2s ease, opacity .2s ease, visibility .2s ease;
+		}
+	
+		.option {
+			color: inherit;
+			font-size: .825rem;
+			padding: 0.625rem 1rem;
+			cursor: pointer;
+			transition: color .2s ease;
+			
+			@include hover() {
+				color: $font-color-dafault;
+			}
+			
+			@media (hover: none) {
+				color: $font-color-dafault;
+			}
+		}
 		
 		&.opened {
 			.dropdown-btn {
-				color: $color-black;
+				color: $font-color-dafault;
 			}
 			
 			.dropdown-icon {
 				top: initial;
 				bottom: -1px;
+				border-color: $font-color-dafault;
 				transform: rotate(45deg);
 			}
 			
-			.dropdown-options {
+			.options {
 				top: 100%;
 				opacity: 1;
 				visibility: visible;
 			}
-		}
-	}
-	
-	.dropdown-btn {
-    display: flex;
-    align-items: center;
-    align-self: flex-end;
-		font-family: $font-family-default, sans-serif;
-    font-size: 0.75rem;
-    line-height: 1.25;
-    color: $color-grey;
-    background-color: #fff;
-    border: none;
-    border-radius: 0.25rem;
-    box-shadow: 0px 2px 5px rgb(0 0 0 / 10%);
-    margin-bottom: 1rem;
-    padding: 0.625rem 1rem calc(0.625rem + 1px);
-    font-weight: 400;
-		cursor: pointer;
-		transition: color .2s ease;
-		
-		@include hover() {
-			color: $color-black;
-		}
-	}
-	
-	.dropdown-icon {
-		position: relative;
-		top: -1px;
-		display: inline-block;
-		width: 5px;
-		height: 5px;
-		border-top: 1px solid $color-grey;
-		border-left: 1px solid $color-grey;
-		margin-left: 6px;
-		transform-origin: 50% 50%;
-		transform: rotate(225deg);
-		
-		transition: transform .2s ease;
-	}
-
-	
-	.dropdown-options {
-		position: absolute;
-		top: 80%;
-		right: 0;
-		display: block;
-		width: 100%;
-		max-width: 510px;
-		min-width: fit-content;
-		list-style-type: none;
-		border-radius: 4px;
-		background-color: $color-white;
-		box-shadow: 0px 20px 30px rgb(0 0 0 / 4%), 0px 6px 10px rgb(0 0 0 / 2%);
-		margin: 0;
-		padding: 0;
-		z-index: 2;
-		
-		visibility: hidden;
-		opacity: 0;
-		
-		transition: top .2s ease, opacity .2s ease, visibility .2s ease;
-	}
-	
-	.dropdown-option {
-		padding: 0.625rem 1rem;
-		cursor: pointer;
-		transition: color .2s ease;
-		
-		@include hover() {
-			color: $color-green;
 		}
 	}
 	
@@ -289,8 +300,10 @@ $grid-gap: 1rem;
 			top: 1rem;
 			z-index: 2;
 		}
-		.dropdown-options {
-			width: calc(100vw - $container-padding--mobile * 2);
+		.dropdown {
+			.options {
+				width: calc(100vw - $container-padding--mobile * 2);
+			}
 		}
 	}
 }
