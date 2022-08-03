@@ -38,7 +38,7 @@
 
 				<article :class="products.content">
 					<div :class="products.sort">
-						<div :class="{ [products.dropdown]: true, [products.opened]: isDropdownOpened }">
+						<div :class="{ [products.dropdown]: true, [products.opened]: isDropdownOpened }" ref="dropdown">
 							<button :class="products['dropdown-btn']" @click="isDropdownOpened = !isDropdownOpened">
 								<span v-html="filter"></span>
 								<i :class="products['dropdown-icon']"></i>
@@ -58,10 +58,9 @@
 							<!-- <input type="hidden" :name="{ name }" :value="{ value }"> -->
 						</div>
 					</div>
-					
+
 					<div :class="products.cards">
-						<Product v-for="product in PRODUCTS" :key="product.id"
-							:info="product"
+						<Product v-for="product in PRODUCTS" :key="product.id" :info="product"
 							:class="{ [products['new-product']]: product.id == $store.state.products.newId, [products.product]: true }" />
 					</div>
 				</article>
@@ -105,6 +104,10 @@ export default {
 		},
 		setOption(option) {
 			this.filter = this.filters[option];
+		},
+		toggleDropdown() {
+			let abc = this.$refs.dropdown
+			console.log(abc)
 		}
 	},
 	computed: {
@@ -112,6 +115,13 @@ export default {
 	},
 	mounted() {
 		this.FETCH_PRODUCTS_MOCKUP();
+		
+		// document.addEventListener('click', (evt) => {
+		// 	let $dropdowns = document.querySelector()
+		// 	evt.preventDefault();
+		// 	console.log(evt.target)
+		// })
+
 	}
 };
 </script>
@@ -139,6 +149,7 @@ $grid-gap: 1rem;
 	.container {
 		display: flex;
 		justify-content: space-between;
+		flex-wrap: wrap;
 	}
 
 	.title {
@@ -152,6 +163,14 @@ $grid-gap: 1rem;
 		.sort {
 			display: none;
 		}
+	}
+}
+
+.sort {
+	display: flex;
+
+	.dropdown:not(:last-child) {
+		margin-right: 1rem;
 	}
 }
 
@@ -268,6 +287,7 @@ $grid-gap: 1rem;
 
 .main {
 	padding-bottom: $container-padding;
+
 	.container {
 		display: grid;
 		display: -ms-grid;
@@ -278,7 +298,7 @@ $grid-gap: 1rem;
 
 	.form {
 		position: sticky;
-		top: $grid-gap;
+		top: 1.5rem;
 		margin-bottom: $grid-gap;
 	}
 
@@ -297,7 +317,7 @@ $grid-gap: 1rem;
 		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		gap: $grid-gap;
 	}
-	
+
 	@keyframes newProduct {
 		from {
 			opacity: .2;
@@ -321,7 +341,7 @@ $grid-gap: 1rem;
 		.cards {
 			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 		}
-		
+
 		.product {
 			margin: 0 auto;
 		}
@@ -331,7 +351,7 @@ $grid-gap: 1rem;
 		.container {
 			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		}
-		
+
 		.aside {
 			display: flex;
 			justify-content: center;
@@ -345,7 +365,6 @@ $grid-gap: 1rem;
 	}
 
 	@include breakpoint($breakpoint-xs) {
-
 		.container {
 			grid-template-columns: 1fr;
 		}
@@ -364,7 +383,7 @@ $grid-gap: 1rem;
 			display: flex;
 			justify-content: flex-end;
 			position: sticky;
-			top: 1rem;
+			top: 1.5rem;
 			z-index: 2;
 		}
 	}
