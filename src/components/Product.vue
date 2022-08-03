@@ -30,9 +30,8 @@
 			</div>
 
 			<div :class="product.info">
-				<h1 :class="product.title">{{ info.title }}</h1>
-				<p :class="product.description" v-html="info.description">
-				</p>
+				<h2 :class="product.title">{{ info.title }}</h2>
+				<p :class="product.description" v-html="info.description"></p>
 
 				<strong :class="product.price"> {{ info.price }} {{ info.currency }} </strong>
 			</div>
@@ -164,6 +163,9 @@ $transition-duration: 0.2s;
 
 		margin: 0;
 		margin-bottom: 1rem;
+
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.description {

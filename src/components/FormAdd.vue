@@ -109,7 +109,6 @@ export default {
 $color-white: #fffefb !default;
 $font-color-dafault: #49485e !default;
 $color-black: #3f3f3f !default;
-$color-white: #fffefb !default;
 $color-grey: #b4b4b4 !default;
 $font-family-default: Arial !default;
 $color-grey-light: #eeeeee !default;
@@ -140,6 +139,7 @@ $required-helper-color: $color-red;
 	max-width: 400px;
 	background-color: $bg-color;
 	border-radius: $border-radius;
+	box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02);
 	padding: 1.5rem;
 	box-sizing: border-box;
 
@@ -259,13 +259,15 @@ $required-helper-color: $color-red;
 		background-color: $btn-bg-color;
 		border-radius: .625rem;
 		margin-top: 1.5rem;
+		 cursor: pointer;
 
 		transition: color .2s ease,
-			background-color .2s ease;
+								background-color .2s ease;
 
 		&:disabled {
 			color: $btn-color--disabled;
 			background-color: $btn-bg-color--disabled;
+			cursor: not-allowed;
 		}
 	}
 

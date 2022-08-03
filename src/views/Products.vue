@@ -278,7 +278,7 @@ $grid-gap: 1rem;
 
 	.form {
 		position: sticky;
-		top: $grid-gap;
+		top: 1.5rem;
 		margin-bottom: $grid-gap;
 	}
 
