@@ -7,25 +7,8 @@
 				</h1>
 
 				<div :class="products.sort">
-					<div :class="{ [products.dropdown]: true, [products.opened]: isDropdownOpened }">
-						<button :class="products['dropdown-btn']" @click="isDropdownOpened = !isDropdownOpened">
-							<span v-html="filter"></span>
-							<i :class="products['dropdown-icon']"></i>
-						</button>
-						<ul :class="products['options']">
-							<li :class="products['option']"
-								@click="sortByPriceUp(), isDropdownOpened = !isDropdownOpened, setOption('priceUp')"
-								v-html="filters.priceUp"></li>
-							<li :class="products['option']"
-								@click="sortByPriceDown(), isDropdownOpened = !isDropdownOpened, setOption('priceDown')"
-								v-html="filters.priceDown"></li>
-							<li :class="products['option']"
-								@click="sortByName(), isDropdownOpened = !isDropdownOpened, setOption('name')" v-html="filters.name">
-							</li>
-						</ul>
 
-						<!-- <input type="hidden" :name="{ name }" :value="{ value }"> -->
-					</div>
+					<Dropdown :options="sortOptions" :name="'sort'" :default="'По умолчанию'" />
 				</div>
 			</div>
 		</header>
@@ -38,25 +21,7 @@
 
 				<article :class="products.content">
 					<div :class="products.sort">
-						<div :class="{ [products.dropdown]: true, [products.opened]: isDropdownOpened }" ref="dropdown">
-							<button :class="products['dropdown-btn']" @click="isDropdownOpened = !isDropdownOpened">
-								<span v-html="filter"></span>
-								<i :class="products['dropdown-icon']"></i>
-							</button>
-							<ul :class="products['options']">
-								<li :class="products['option']"
-									@click="sortByPriceUp(), isDropdownOpened = !isDropdownOpened, setOption('priceUp')"
-									v-html="filters.priceUp"></li>
-								<li :class="products['option']"
-									@click="sortByPriceDown(), isDropdownOpened = !isDropdownOpened, setOption('priceDown')"
-									v-html="filters.priceDown"></li>
-								<li :class="products['option']"
-									@click="sortByName(), isDropdownOpened = !isDropdownOpened, setOption('name')" v-html="filters.name">
-								</li>
-							</ul>
-
-							<!-- <input type="hidden" :name="{ name }" :value="{ value }"> -->
-						</div>
+						<Dropdown :options="sortOptions" :name="'sort'" :default="'По умолчанию'" />
 					</div>
 
 					<div :class="products.cards">
@@ -72,56 +37,57 @@
 <script>
 import Product from "@/components/Product";
 import FormAdd from "@/components/FormAdd";
+import Dropdown from "@/components/Dropdown";
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
 	name: "products",
 	components: {
 		Product,
-		FormAdd
+		FormAdd,
+		Dropdown
 	},
 	data() {
 		return {
 			isDropdownOpened: false,
-			filter: 'По&nbsp;умолчанию',
-			filters: {
-				name: 'По&nbsp;названию',
-				priceUp: 'По&nbsp;возрастанию&nbsp;цены',
-				priceDown: 'По&nbsp;убыванию&nbsp;цены'
-			}
+			sortOptions: [{
+				text: 'По названию',
+				value: 'byName',
+				handler: () => {
+					this.sortByName()
+				}
+			}, {
+				text: 'По возрастанию цены',
+				value: 'byPriceUp',
+				handler: () => {
+					this.sortByPriceUp()
+				}
+			}, {
+				text: 'По убыванию цены',
+				value: 'byPriceDown',
+				handler: () => {
+					this.sortByPriceDown()
+				}
+			},]
 		}
 	},
 	methods: {
 		...mapActions(['FETCH_PRODUCTS_MOCKUP']),
 		sortByName() {
-			this.PRODUCTS.sort((a, b) => a.title.localeCompare(b.title));
+			return this.PRODUCTS.sort((a, b) => a.title.localeCompare(b.title));
 		},
 		sortByPriceUp() {
-			this.PRODUCTS.sort((a, b) => Number(a.price.replace(/ /g, '')) - Number(b.price.replace(/ /g, '')));
+			return this.PRODUCTS.sort((a, b) => Number(a.price.replace(/ /g, '')) - Number(b.price.replace(/ /g, '')));
 		},
 		sortByPriceDown() {
-			this.PRODUCTS.sort((a, b) => Number(b.price.replace(/ /g, '')) - Number(a.price.replace(/ /g, '')));
+			return this.PRODUCTS.sort((a, b) => Number(b.price.replace(/ /g, '')) - Number(a.price.replace(/ /g, '')));
 		},
-		setOption(option) {
-			this.filter = this.filters[option];
-		},
-		toggleDropdown() {
-			let abc = this.$refs.dropdown
-			console.log(abc)
-		}
 	},
 	computed: {
 		...mapGetters(['PRODUCTS'])
 	},
 	mounted() {
 		this.FETCH_PRODUCTS_MOCKUP();
-		
-		// document.addEventListener('click', (evt) => {
-		// 	let $dropdowns = document.querySelector()
-		// 	evt.preventDefault();
-		// 	console.log(evt.target)
-		// })
-
 	}
 };
 </script>

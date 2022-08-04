@@ -1,6 +1,7 @@
 const state = {
 	products: [],
-	newId: ''
+	newId: '',
+	options: {}
 };
 
 const mutations = {
