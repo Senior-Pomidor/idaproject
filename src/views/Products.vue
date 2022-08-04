@@ -282,6 +282,10 @@ $grid-gap: 1rem;
 		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		gap: $grid-gap;
 	}
+	
+	.product {
+		margin: 0 auto;
+	}
 
 	@keyframes newProduct {
 		from {
@@ -305,10 +309,6 @@ $grid-gap: 1rem;
 
 		.cards {
 			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-		}
-
-		.product {
-			margin: 0 auto;
 		}
 	}
 
