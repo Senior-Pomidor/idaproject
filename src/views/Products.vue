@@ -7,7 +7,6 @@
 				</h1>
 
 				<div :class="products.sort">
-
 					<Dropdown :options="sortOptions" :name="'sort'" :default="'По умолчанию'" />
 				</div>
 			</div>
