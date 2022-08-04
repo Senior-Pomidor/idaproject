@@ -1,9 +1,11 @@
 <template>
-	<form action="" :class="formAdd['form-add']">
+	<form action="" :class="formAdd['form-add']" ref="form-add">
 		<div :class="{ [formAdd.group]: true, [formAdd.required]: true }">
 			<label :class="formAdd.label" for="title">Наименование товара</label>
-			<input :class="{ [formAdd.input]: true, [formAdd['validation-required']]: !$v.info.title.required }" type="text"
-				id="title" name="title" placeholder="Введите наименование товара" v-model="info.title" autocomplete="off" />
+			<input
+				:class="{ [formAdd.input]: true, [formAdd['validation-required']]: !$v.info.title.required && $v.info.title.$dirty }"
+				type="text" id="title" name="title" placeholder="Введите наименование товара" v-model="info.title"
+				autocomplete="off" @input="$v.info.title.$touch" />
 			<small :class="formAdd['required-helper']">
 				Поле является обязательным
 			</small>
@@ -22,8 +24,9 @@
 				Ссылка на изображение товара
 			</label>
 			<input
-				:class="{ [formAdd.input]: true, [formAdd['validation-required']]: !($v.info.image.required && $v.info.image.url) }"
-				type="text" id="img" name="img" placeholder="Введите ссылку" v-model="info.image" autocomplete="off" />
+				:class="{ [formAdd.input]: true, [formAdd['validation-required']]: (!$v.info.image.required || !$v.info.image.url) && $v.info.image.$dirty }"
+				type="text" id="img" name="img" placeholder="Введите ссылку" v-model="info.image" autocomplete="off"
+				@input="$v.info.image.$touch" />
 			<small :class="formAdd['required-helper']">
 				Поле является обязательным
 			</small>
@@ -31,9 +34,10 @@
 
 		<div :class="{ [formAdd.group]: true, [formAdd.required]: true }">
 			<label :class="formAdd.label" for="price"> Цена товара </label>
-			<input :class="{ [formAdd.input]: true, [formAdd['validation-required']]: !$v.info.price.required }" type="text"
-				id="price" name="price" placeholder="Введите цену" v-model="info.price" autocomplete="off"
-				@input="formatPrice()" />
+			<input
+				:class="{ [formAdd.input]: true, [formAdd['validation-required']]: !$v.info.price.required && $v.info.price.$dirty }"
+				type="text" id="price" name="price" placeholder="Введите цену" v-model="info.price" autocomplete="off"
+				@input="$v.info.price.$touch(); formatPrice()" />
 			<small :class="formAdd['required-helper']">
 				Поле является обязательным
 			</small>
@@ -41,10 +45,8 @@
 
 		<input :class="{
 			[formAdd['submit-btn']]: true,
-			[formAdd.input]: true}"
-			type="submit"
-			value="Добавить товар"
-			:disabled="$v.info.$invalid"
+			[formAdd.input]: true
+		}" type="submit" value="Добавить товар" :disabled="$v.info.$invalid"
 			@click.prevent="sendForm()" />
 	</form>
 </template>
@@ -52,6 +54,7 @@
 <script>
 import { required, url } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex'
+
 
 export default {
 	name: "form-add",
@@ -75,6 +78,7 @@ export default {
 	},
 	mounted() {
 		this.resetTextFields();
+		this.$v.$reset();
 	},
 	methods: {
 		...mapActions(['CREATE_PRODUCT']),
@@ -89,7 +93,9 @@ export default {
 
 			this.CREATE_PRODUCT(formData);
 			alert('Товар успешно добавлен');
+
 			this.resetTextFields();
+			this.$v.$reset();
 		},
 		resetTextFields() {
 			for (let key in this.info) {
@@ -259,10 +265,10 @@ $required-helper-color: $color-red;
 		background-color: $btn-bg-color;
 		border-radius: .625rem;
 		margin-top: 1.5rem;
-		 cursor: pointer;
+		cursor: pointer;
 
 		transition: color .2s ease,
-								background-color .2s ease;
+			background-color .2s ease;
 
 		&:disabled {
 			color: $btn-color--disabled;
