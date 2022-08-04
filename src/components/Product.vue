@@ -1,5 +1,5 @@
 <template>
-	<article :class="product.product" ref="prod">
+	<article :class="product.product" ref="product">
 		<button :class="product['remove-btn']" @click="remove()">
 			<svg xmlns="http://www.w3.org/2000/svg">
 				<g>
@@ -63,7 +63,7 @@ export default {
 	methods: {
 		...mapActions(['DELETE_PRODUCT']),
 		remove() {
-			const $product = this.$refs.prod;
+			const $product = this.$refs.product;
 			
 			$product.classList.add('remove')
 			
@@ -75,7 +75,7 @@ export default {
 				$product.removeEventListener('transitionend', transitionEndHandler);
 			}
 			
-			this.$refs.prod.addEventListener('transitionend', transitionEndHandler)
+			$product.addEventListener('transitionend', transitionEndHandler)
 		}
 	}
 }
