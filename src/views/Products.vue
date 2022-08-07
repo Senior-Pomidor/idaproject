@@ -53,34 +53,28 @@ export default {
 				text: 'По названию',
 				value: 'byName',
 				handler: () => {
-					this.sortByName()
+					// стрелочная функция
+					// чтобы this указыал не на копонент дропдауна,
+					// а на данный компонент (Products)
+					this.SORT_PRODUCTS('byName')
 				}
 			}, {
 				text: 'По возрастанию цены',
 				value: 'byPriceUp',
 				handler: () => {
-					this.sortByPriceUp()
+					this.SORT_PRODUCTS('byPriceUp')
 				}
 			}, {
 				text: 'По убыванию цены',
 				value: 'byPriceDown',
 				handler: () => {
-					this.sortByPriceDown()
+					this.SORT_PRODUCTS('byPriceDown')
 				}
 			},]
 		}
 	},
 	methods: {
-		...mapActions(['FETCH_PRODUCTS_MOCKUP']),
-		sortByName() {
-			return this.PRODUCTS.sort((a, b) => a.title.localeCompare(b.title));
-		},
-		sortByPriceUp() {
-			return this.PRODUCTS.sort((a, b) => Number(a.price.replace(/ /g, '')) - Number(b.price.replace(/ /g, '')));
-		},
-		sortByPriceDown() {
-			return this.PRODUCTS.sort((a, b) => Number(b.price.replace(/ /g, '')) - Number(a.price.replace(/ /g, '')));
-		},
+		...mapActions(['FETCH_PRODUCTS_MOCKUP', 'SORT_PRODUCTS'])
 	},
 	computed: {
 		...mapGetters(['PRODUCTS'])
