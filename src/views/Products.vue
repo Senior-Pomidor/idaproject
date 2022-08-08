@@ -7,6 +7,8 @@
 				</h1>
 
 				<div :class="products.sort">
+					<button type="button" :class="products['btn-open-form']" @click="isShownForm = !isShownForm"></button>
+					
 					<Dropdown :options="sortOptions" :name="'sort'" :default="'По умолчанию'" />
 				</div>
 			</div>
@@ -15,14 +17,11 @@
 		<main :class="products.main">
 			<div :class="products.container" class="container">
 				<aside :class="products.aside">
-					<FormAdd :class="products.form" />
+					<FormAdd :class="{[products.form]: true, [products.shown]: isShownForm}" @submit="isShownForm = false" />
+					<div :class="products.overlay" @click="isShownForm = !isShownForm"></div>
 				</aside>
 
 				<article :class="products.content">
-					<div :class="products.sort">
-						<Dropdown :options="sortOptions" :name="'sort'" :default="'По умолчанию'" />
-					</div>
-
 					<div :class="products.cards">
 						<Product v-for="product in PRODUCTS" :key="product.id" :info="product"
 							:class="{ [products['new-product']]: product.id == $store.state.products.newId, [products.product]: true }" />
@@ -49,6 +48,7 @@ export default {
 	data() {
 		return {
 			isDropdownOpened: false,
+			isShownForm: false,
 			sortOptions: [{
 				text: 'По названию',
 				value: 'byName',
@@ -98,11 +98,13 @@ $font-family-default: Arial !default;
 $color-white: #FFFEFB !default;
 $color-grey: #B4B4B4 !default;
 $color-green: #7BAE73 !default;
+$color-black: #3F3F3F !default;
 
 $header-pading: 1rem;
 $grid-gap: 1rem;
 
 .layout {
+	position: relative;
 	color: $font-color-dafault;
 }
 
@@ -123,17 +125,54 @@ $grid-gap: 1rem;
 
 
 	@include breakpoint($breakpoint-xs) {
-		.sort {
-			display: none;
+		position: sticky;
+		top: 0;
+		box-shadow: 0 0 19px 20px #fffefb;
+		background-color: $color-white;
+		padding-top: 1rem;
+		padding-bottom: 0;
+		margin-bottom: 1.5rem;
+		z-index: 3;
+		
+		.title {
+			width: 100%;
+			flex-basis: 100%;
+			font-size: 1.5rem;
+			margin-bottom: 1rem;
 		}
 	}
 }
 
 .sort {
 	display: flex;
+	justify-content: flex-end;
+	flex-grow: 1;
 
 	.dropdown:not(:last-child) {
 		margin-right: 1rem;
+	}
+	
+	.btn-open-form {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: none;
+		border-radius: .25rem;
+		background-color: $color-white;
+		box-shadow: 0px 2px 5px rgb(0 0 0 / 10%);
+		padding: 0.625rem 1rem calc(0.625rem + 1px);
+		margin-right: auto;
+		
+		@include webfont-icon($webfont-icon--plus);
+		
+		&::before {
+			color: $color-green;
+		}
+	}
+	
+	@include breakpoint($breakpoint-xs) {
+		position: sticky;
+		top: 1rem;
 	}
 }
 
@@ -338,6 +377,47 @@ $grid-gap: 1rem;
 			}
 		}
 
+
+		.form {
+			position: fixed;
+			top: 64px;
+			z-index: 5;
+			
+			visibility: hidden;
+			opacity: 0;
+			transform: scale(.9);
+			
+			transition: all .3s ease;
+			
+			+ .overlay {
+				position: fixed;
+				top: 0;
+				left: 0;
+				display: none;
+				width: 1100vw;
+				height: 100vh;
+				background-color: $color-black;
+				z-index: 3;
+				
+				// opacity: 0;
+				// visibility: hidden;
+				
+				// transition: opacity .3s ease, visibility .3s ease;
+			}
+			
+			&.shown {
+				visibility: visible;
+				opacity: 1;
+				transform: scale(1);
+				
+				+ .overlay {
+					display: block;
+					opacity: .8;
+					// visibility: visible;
+				}
+			}
+		}
+		
 		.content {
 			grid-column: initial;
 		}
