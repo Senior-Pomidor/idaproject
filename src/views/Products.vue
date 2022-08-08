@@ -74,13 +74,17 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions(['FETCH_PRODUCTS_MOCKUP', 'SORT_PRODUCTS'])
+		...mapActions(['FETCH_PRODUCTS', 'SORT_PRODUCTS'])
 	},
 	computed: {
 		...mapGetters(['PRODUCTS'])
 	},
-	mounted() {
-		this.FETCH_PRODUCTS_MOCKUP();
+	created() {
+		// данные из mockup.json (данные из макета)
+		// this.FETCH_PRODUCTS_MOCKUP();
+		
+		// данные с API https://fakerapi.it
+		this.FETCH_PRODUCTS();
 	}
 };
 </script>

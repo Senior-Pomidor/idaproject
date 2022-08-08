@@ -3,9 +3,9 @@
 		<div :class="{ [formAdd.group]: true, [formAdd.required]: true }">
 			<label :class="formAdd.label" for="title">Наименование товара</label>
 			<input
-				:class="{ [formAdd.input]: true, [formAdd['validation-required']]: !$v.info.title.required && $v.info.title.$dirty }"
-				type="text" id="title" name="title" placeholder="Введите наименование товара" v-model="info.title"
-				autocomplete="off" @input="$v.info.title.$touch" />
+				:class="{ [formAdd.input]: true, [formAdd['validation-required']]: !$v.info.name.required && $v.info.name.$dirty }"
+				type="text" id="name" name="name" placeholder="Введите наименование товара" v-model="info.name"
+				autocomplete="off" @input="$v.info.name.$touch" />
 			<small :class="formAdd['required-helper']">
 				Поле является обязательным
 			</small>
@@ -62,7 +62,7 @@ export default {
 		return {
 			currency: 'руб.',
 			info: {
-				title: null,
+				name: null,
 				description: null,
 				image: null,
 				price: null
@@ -71,7 +71,7 @@ export default {
 	},
 	validations: {
 		info: {
-			title: { required },
+			name: { required },
 			image: { required, url },
 			price: { required }
 		}
@@ -84,7 +84,7 @@ export default {
 		...mapActions(['CREATE_PRODUCT']),
 		sendForm() {
 			if (this.$v.info.$invalid) {
-				alert('Заполните все обязательные поля соотетствующими значениями');
+				alert('Заполните все обязательные поля соответствующими значениями');
 				return
 			}
 
