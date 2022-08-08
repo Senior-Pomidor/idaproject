@@ -37,16 +37,18 @@ const actions = {
 		commit('SET_PRODUCTS', mockup.products);
 		return mockup;
 	},
-	FETCH_PRODUCTS({ commit }) {
-		fetch('https://fakerapi.it/api/v1/products', {
+	async FETCH_PRODUCTS({ commit }) {
+		const response = await fetch('https://fakerapi.it/api/v1/products', {
 			method: 'GET'
 		})
-		.then(response => {
-			response.json().then(json => {
-				commit('SET_PRODUCTS', json.data);
-			})
-		})
-		.catch(error => console.error('FETCH_PRODUCTS: ', error.message))
+		const json = await response.json()
+		
+		if (!response.ok) {
+			const message = `${response.status + ': ' + response.statusText}`;
+			throw new Error(message);
+		}
+		
+		commit('SET_PRODUCTS', json.data);
 	},
 	CREATE_PRODUCT({ commit }, product) {
 		// отправка в БД
