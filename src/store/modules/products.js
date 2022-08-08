@@ -1,12 +1,13 @@
 const state = {
 	products: [],
 	newId: '',
+	defaultCurrency: 'руб.',
 	options: {}
 };
 
 const mutations = {
-	SET_PRODUCTS_MOCKUP: (state, productsMockup) => {
-		state.products = productsMockup;
+	SET_PRODUCTS: (state, products) => {
+		state.products = products;
 	},
 	ADD_PRODUCT: (state, product) => {
 		state.newId = product.id + '';
@@ -33,8 +34,21 @@ const mutations = {
 const actions = {
 	async FETCH_PRODUCTS_MOCKUP({ commit }) {
 		let mockup = await import('../mockup.json')
-		commit('SET_PRODUCTS_MOCKUP', mockup.products);
+		commit('SET_PRODUCTS', mockup.products);
 		return mockup;
+	},
+	async FETCH_PRODUCTS({ commit }) {
+		const response = await fetch('https://fakerapi.it/api/v1/products', {
+			method: 'GET'
+		})
+		const json = await response.json()
+		
+		if (!response.ok) {
+			const message = `${response.status + ': ' + response.statusText}`;
+			throw new Error(message);
+		}
+		
+		commit('SET_PRODUCTS', json.data);
 	},
 	CREATE_PRODUCT({ commit }, product) {
 		// отправка в БД
@@ -62,7 +76,8 @@ const actions = {
 };
 
 const getters = {
-	PRODUCTS: (state) => state.products
+	PRODUCTS: state => state.products,
+	DEFAULT_CURRENCY: state => state.defaultCurrency
 };
 
 

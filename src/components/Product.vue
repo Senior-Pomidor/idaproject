@@ -30,17 +30,17 @@
 			</div>
 
 			<div :class="product.info">
-				<h2 :class="product.title">{{ info.title }}</h2>
+				<h2 :class="product.title">{{ info.name }}</h2>
 				<p :class="product.description" v-html="info.description"></p>
 
-				<strong :class="product.price"> {{ info.price }} {{ info.currency }} </strong>
+				<strong :class="product.price"> {{ info.price | formatPrice }} {{ info.currency ? info.currency : DEFAULT_CURRENCY }} </strong>
 			</div>
 		</router-link>
 	</article>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
 	name: 'product',
@@ -52,13 +52,16 @@ export default {
 					id: null,
 					link: null,
 					image: "img/content/product.jpg",
-					title: null,
+					name: null,
 					description: null,
 					price: null,
 					currency: null
 				}
 			}
 		}
+	},
+	computed: {
+		...mapGetters(['DEFAULT_CURRENCY'])
 	},
 	methods: {
 		...mapActions(['DELETE_PRODUCT']),
@@ -76,6 +79,12 @@ export default {
 			}
 			
 			$product.addEventListener('transitionend', transitionEndHandler)
+		}
+	},
+	filters: {
+		formatPrice(price) {
+			price = price.replace(/[^0-9.]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+			return price
 		}
 	}
 }
