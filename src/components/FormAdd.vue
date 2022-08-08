@@ -83,6 +83,11 @@ export default {
 	methods: {
 		...mapActions(['CREATE_PRODUCT']),
 		sendForm() {
+			if (this.$v.info.$invalid) {
+				alert('Заполните все обязательные поля соотетствующими значениями');
+				return
+			}
+
 			const formData = {}
 
 			formData.currency = this.currency;
