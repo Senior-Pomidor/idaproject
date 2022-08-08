@@ -72,7 +72,7 @@ export default {
 			
 			const transitionEndHandler = () => {
 				this.DELETE_PRODUCT(this.info.id);
-				alert(`${this.info.title} успешно удалён`);
+				alert(`${this.info.name} успешно удалён`);
 				
 				// удаление чтобы не повторялось при transition на нескольких css свойствах
 				$product.removeEventListener('transitionend', transitionEndHandler);
