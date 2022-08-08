@@ -20,6 +20,7 @@ $webfont-icon--star: "e904";
 $webfont-icon--telegram: "e905";
 $webfont-icon--vk: "e906";
 $webfont-icon--watsapp: "e907";
+$webfont-icon--plus: "ea0a";
 
 @mixin webfont-icon($icon-code, $after-or-before: 'before') {
 	&:#{$after-or-before} {
@@ -38,3 +39,40 @@ $webfont-icon--watsapp: "e907";
 		-moz-osx-font-smoothing: grayscale;
 	}
 }
+
+
+// .icon-facebook:before {
+//   content: "\e900";
+//   color: #70c9e8;
+// }
+// .icon-instagram:before {
+//   content: "\e901";
+//   color: #70c9e8;
+// }
+// .icon-mail:before {
+//   content: "\e902";
+//   color: #70c9e8;
+// }
+// .icon-send:before {
+//   content: "\e903";
+//   color: #70c9e8;
+// }
+// .icon-star:before {
+//   content: "\e904";
+//   color: #70c9e8;
+// }
+// .icon-telegram:before {
+//   content: "\e905";
+//   color: #70c9e8;
+// }
+// .icon-vk:before {
+//   content: "\e906";
+//   color: #70c9e8;
+// }
+// .icon-watsapp:before {
+//   content: "\e907";
+//   color: #70c9e8;
+// }
+// .icon-plus:before {
+//   content: "\ea0a";
+// }

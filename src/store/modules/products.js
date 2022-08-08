@@ -21,7 +21,7 @@ const mutations = {
 		state.products.splice(index, 1);
 	},
 	SORT_PRODUCTS_BY_NAME: (state) => {
-		state.products.sort((a, b) => a.title.localeCompare(b.title));
+		state.products.sort((a, b) => a.name.localeCompare(b.name));
 	},
 	SORT_PRODUCTS_BY_PRICE_UP: (state) => {
 		state.products.sort((a, b) => Number(a.price.replace(/ /g, '')) - Number(b.price.replace(/ /g, '')));

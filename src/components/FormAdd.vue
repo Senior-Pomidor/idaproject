@@ -101,6 +101,8 @@ export default {
 
 			this.resetTextFields();
 			this.$v.$reset();
+			
+			this.$emit('submit')
 		},
 		resetTextFields() {
 			for (let key in this.info) {
