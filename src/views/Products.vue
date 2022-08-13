@@ -182,7 +182,7 @@ $grid-gap: 1rem;
 	}
 	
 	.btn-open-form {
-		display: flex;
+		display: none;
 		justify-content: center;
 		align-items: center;
 		border: none;
@@ -202,6 +202,10 @@ $grid-gap: 1rem;
 	@include breakpoint($breakpoint-xs) {
 		position: sticky;
 		top: 1rem;
+		
+		.btn-open-form {
+			display: flex;
+		}
 	}
 }
 
