@@ -23,8 +23,12 @@
 
 				<article :class="products.content">
 					<div :class="products.cards">
-						<Product v-for="product in PRODUCTS" :key="product.id" :info="product"
-							:class="{ [products['new-product']]: product.id == $store.state.products.newId, [products.product]: true }" />
+						<transition-group name="products__products-list" tag="div">
+							<Product v-for="product in PRODUCTS"
+								:key="product.id"
+								:info="product"
+								:class="products.product" />
+						</transition-group>
 					</div>
 				</article>
 			</div>
@@ -74,7 +78,10 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions(['FETCH_PRODUCTS', 'SORT_PRODUCTS'])
+		...mapActions(['FETCH_PRODUCTS', 'SORT_PRODUCTS']),
+		tes() {
+			console.log('tes 123')
+		}
 	},
 	computed: {
 		...mapGetters(['PRODUCTS'])
@@ -92,8 +99,8 @@ export default {
 <style lang="scss" module="products">
 // Дефолтные значения переменных, если не заданы глобальные
 $font-color-dafault: #3F3F3F !default;
-// $container-padding: 2rem !default;
-// $container-padding--mobile: 1rem !default;
+$container-padding: 2rem !default;
+$container-padding--mobile: 1rem !default;
 $font-family-default: Arial !default;
 $color-white: #FFFEFB !default;
 $color-grey: #B4B4B4 !default;
@@ -102,6 +109,26 @@ $color-black: #3F3F3F !default;
 
 $header-pading: 1rem;
 $grid-gap: 1rem;
+
+// animations
+	:global(.products__products-list-enter-active){
+		animation: new-product-add 0.5s;
+	}
+	
+	:global(.products__products-list-leave-active){
+		animation: new-product-add 0.5s reverse;
+	}
+
+	@keyframes new-product-add {
+		0% {
+			opacity: .2;
+			transform: scale(.9);
+		}
+		100% {
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
 
 .layout {
 	position: relative;
@@ -313,7 +340,7 @@ $grid-gap: 1rem;
 		margin-bottom: 1rem;
 	}
 
-	.cards {
+	.cards > div {
 		display: grid;
 		display: -ms-grid;
 		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -344,7 +371,7 @@ $grid-gap: 1rem;
 			grid-template-columns: 300px auto;
 		}
 
-		.cards {
+		.cards > div {
 			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 		}
 	}
