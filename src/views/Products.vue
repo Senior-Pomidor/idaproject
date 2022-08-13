@@ -22,6 +22,8 @@
 				</aside>
 
 				<article :class="products.content">
+					<span v-if="!PRODUCTS.length"><b>Товаров пока нет</b></span>
+					
 					<div :class="products.cards">
 						<transition-group name="products__products-list" tag="div">
 							<Product v-for="product in PRODUCTS"
