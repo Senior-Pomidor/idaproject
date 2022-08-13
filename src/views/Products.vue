@@ -22,6 +22,8 @@
 				</aside>
 
 				<article :class="products.content">
+					<span v-if="!PRODUCTS.length"><b>Товаров пока нет</b></span>
+					
 					<div :class="products.cards">
 						<transition-group name="products__products-list" tag="div">
 							<Product v-for="product in PRODUCTS"
@@ -180,7 +182,7 @@ $grid-gap: 1rem;
 	}
 	
 	.btn-open-form {
-		display: flex;
+		display: none;
 		justify-content: center;
 		align-items: center;
 		border: none;
@@ -200,6 +202,10 @@ $grid-gap: 1rem;
 	@include breakpoint($breakpoint-xs) {
 		position: sticky;
 		top: 1rem;
+		
+		.btn-open-form {
+			display: flex;
+		}
 	}
 }
 

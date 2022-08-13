@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const state = {
 	products: [],
 	defaultCurrency: 'руб.',
@@ -35,18 +37,14 @@ const actions = {
 		commit('SET_PRODUCTS', mockup.products);
 		return mockup;
 	},
-	async FETCH_PRODUCTS({ commit }) {
-		const response = await fetch('https://fakerapi.it/api/v1/products', {
-			method: 'GET'
-		})
-		const json = await response.json()
-		
-		if (!response.ok) {
-			const message = `${response.status + ': ' + response.statusText}`;
-			throw new Error(message);
-		}
-		
-		commit('SET_PRODUCTS', json.data);
+	FETCH_PRODUCTS({ commit }) {
+		axios.get('https://fakerapi.it/api/v1/products')
+			.then(response => {
+				commit('SET_PRODUCTS', response.data.data);
+			})
+			.catch(error => {
+				console.error(`${error.name}: ${error.message}`);
+			})
 	},
 	CREATE_PRODUCT({ commit }, product) {
 		// отправка в БД
