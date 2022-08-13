@@ -1,6 +1,5 @@
 const state = {
 	products: [],
-	newId: '',
 	defaultCurrency: 'руб.',
 	options: {}
 };
@@ -10,7 +9,6 @@ const mutations = {
 		state.products = products;
 	},
 	ADD_PRODUCT: (state, product) => {
-		state.newId = product.id + '';
 		state.products.unshift(product);
 	},
 	DELETE_PRODUCT: (state, productId) => {
@@ -57,6 +55,13 @@ const actions = {
 		commit('ADD_PRODUCT', product)
 	},
 	DELETE_PRODUCT({ commit }, productId) {
+		// let promise = new Promise((res, rej) => {
+			// отправка запроса на удаление
+			// setTimeout(() => {
+			// 	res(productId)
+			// }, 2000)
+		// })
+		
 		// удаление из БД
 		// ...
 		// удаление из стейта

@@ -1,6 +1,6 @@
 <template>
 	<article :class="product.product" ref="product">
-		<button :class="product['remove-btn']" @click="remove()">
+		<button :class="product['remove-btn']" @click="remove">
 			<svg xmlns="http://www.w3.org/2000/svg">
 				<g>
 					<path
@@ -66,19 +66,10 @@ export default {
 	methods: {
 		...mapActions(['DELETE_PRODUCT']),
 		remove() {
-			const $product = this.$refs.product;
+			this.DELETE_PRODUCT(this.info.id);
 			
-			$product.classList.add('remove')
-			
-			const transitionEndHandler = () => {
-				this.DELETE_PRODUCT(this.info.id);
-				alert(`${this.info.name} успешно удалён`);
-				
-				// удаление чтобы не повторялось при transition на нескольких css свойствах
-				$product.removeEventListener('transitionend', transitionEndHandler);
-			}
-			
-			$product.addEventListener('transitionend', transitionEndHandler)
+			// уведомление запускать только если ответ от сервера "ОК"
+			alert(`${this.info.name} успешно удалён`);
 		}
 	},
 	filters: {
