@@ -38,12 +38,14 @@ const actions = {
 		return mockup;
 	},
 	FETCH_PRODUCTS({ commit }) {
-		axios.get('https://fakerapi.it/api/v1/products')
+		return axios.get('https://fakerapi.it/api/v1/products')
 			.then(response => {
 				commit('SET_PRODUCTS', response.data.data);
+				return response.data.data
 			})
 			.catch(error => {
 				console.error(`${error.name}: ${error.message}`);
+				return error
 			})
 	},
 	CREATE_PRODUCT({ commit }, product) {
